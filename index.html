@@ -64,7 +64,23 @@
       filter: blur(12px);
       pointer-events: none;
     }
+#well.flash {
+  animation: wellPulse 1.2s ease;
+}
 
+@keyframes wellPulse {
+  0% { box-shadow: 0 0 45px rgba(86, 139, 255, 0.22); }
+  50% { box-shadow: 0 0 95px rgba(140, 190, 255, 0.65); }
+  100% { box-shadow: 0 0 45px rgba(86, 139, 255, 0.22); }
+}
+
+    function pulseWell() {
+  const well = document.getElementById("well");
+  well.classList.remove("flash");
+  void well.offsetWidth;
+  well.classList.add("flash");
+}
+    
     #well {
       position: absolute;
       left: 50%;
@@ -240,7 +256,17 @@
       "your blessing is already on its way…",
       "the well has heard your intention…"
     ];
+    const smallAffirmations = [
+      "your wish has been received…",
+      "the well has heard you…",
+      "energy is moving…"
+];
 
+    const bigAffirmations = [
+      "🌌 a powerful shift has begun…",
+      "✨ the universe is moving in your favor…",
+      "🔮 this intention carries strong energy…"
+];
     const PUSHER_KEY = "a3c72b1712fa1d637b30";
     const PUSHER_CLUSTER = "us2";
 
@@ -304,7 +330,26 @@
       const custom = giftName ? `${giftName} has entered the well…` : "";
       showAffirmation(username, custom);
     }
+function manifest(amount = 10, username = "", giftName = "", diamonds = 1) {
+  let rippleCount = 1;
+  let particleCount = 10;
+  let custom = giftName ? `${giftName} has entered the well…` : "";
 
+  if (diamonds >= 100) {
+    rippleCount = 4;
+    particleCount = 40;
+    custom = "🌌 a powerful manifestation has entered the well…";
+  } else if (diamonds >= 10) {
+    rippleCount = 2;
+    particleCount = 20;
+  }
+
+  dropCoins(amount);
+  addRipple(rippleCount);
+  addParticles(particleCount);
+  showAffirmation(username, custom);
+}
+    
     const pusher = new Pusher(PUSHER_KEY, {
       cluster: PUSHER_CLUSTER
     });
