@@ -398,16 +398,18 @@
     function manifest(amount = 10, username = "", giftName = "", diamonds = 1) {
       let rippleCount = 1;
       let particleCount = 10;
-      let custom = giftName ? `${giftName} has entered the well…` : "";
+      let custom = giftName ? `${giftName} has entered the well…` : 
+        let custom = "";
 
-      if (diamonds >= 100) {
-        rippleCount = 4;
-        particleCount = 40;
-        custom = "🌌 a powerful manifestation has entered the well…";
-      } else if (diamonds >= 10) {
-        rippleCount = 2;
-        particleCount = 20;
-      }
+        if (diamonds >= 100) {
+          custom = "🌌 a powerful manifestation has entered the well…";
+        } else if (diamonds >= 10) {
+          custom = "✨ your intention is gaining strength…";
+        } else if (giftName) {
+          custom = `${giftName} has entered the well…`;
+        } else {
+          custom = "your wish has been received…";
+        }
 
       dropCoins(amount);
       addRipple(rippleCount);
