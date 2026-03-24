@@ -21,7 +21,9 @@ export default async function handler(req, res) {
 
   try {
     const body = req.body || {};
-
+console.log("WEBHOOK HIT");
+console.log("BODY:", JSON.stringify(body));
+    
     const username =
       body.username ||
       body.nickname ||
