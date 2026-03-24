@@ -1,0 +1,8 @@
+{
+  "name": "midnight-manifesting-wishing-well",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "pusher": "^5.2.0"
+  }
+}
