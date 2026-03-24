@@ -7,20 +7,35 @@
 
   <style>
     html, body {
-  margin: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 20%, rgba(73, 105, 183, 0.18), transparent 25%),
-    radial-gradient(circle at 50% 75%, rgba(32, 52, 96, 0.25), transparent 35%),
-    linear-gradient(180deg, #04050d 0%, #0a0d1d 40%, #05070f 100%);
-  font-family: Georgia, serif;
-}
+      margin: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(73, 105, 183, 0.18), transparent 25%),
+        radial-gradient(circle at 50% 75%, rgba(32, 52, 96, 0.25), transparent 35%),
+        linear-gradient(180deg, #04050d 0%, #0a0d1d 40%, #05070f 100%);
+      font-family: Georgia, serif;
+    }
 
     #scene {
       position: relative;
       width: 100vw;
       height: 100vh;
       overflow: hidden;
+    }
+
+    #floor-glow {
+      position: absolute;
+      left: 50%;
+      bottom: 6vh;
+      transform: translateX(-50%);
+      width: 420px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(94, 139, 255, 0.18), rgba(94, 139, 255, 0.02) 70%);
+      filter: blur(25px);
+      pointer-events: none;
     }
 
     .mist {
@@ -45,82 +60,124 @@
       left: 50%;
       bottom: 13vh;
       transform: translateX(-50%);
-      width: 340px;
-      height: 220px;
+      width: 360px;
+      height: 240px;
+    }
+
+    #well-shadow {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: 280px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      filter: blur(18px);
     }
 
     #well-glow {
       position: absolute;
       left: 50%;
-      bottom: 28px;
-      width: 240px;
-      height: 70px;
+      bottom: 26px;
+      width: 250px;
+      height: 80px;
       transform: translateX(-50%);
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(105, 161, 255, 0.38), rgba(105, 161, 255, 0.02) 70%);
-      filter: blur(12px);
-      pointer-events: none;
+      background: radial-gradient(circle, rgba(120, 175, 255, 0.28), rgba(120, 175, 255, 0.02) 70%);
+      filter: blur(14px);
     }
-#well.flash {
-  animation: wellPulse 1.2s ease;
-}
 
-@keyframes wellPulse {
-  0% { box-shadow: 0 0 45px rgba(86, 139, 255, 0.22); }
-  50% { box-shadow: 0 0 95px rgba(140, 190, 255, 0.65); }
-  100% { box-shadow: 0 0 45px rgba(86, 139, 255, 0.22); }
-}
-
-    function pulseWell() {
-  const well = document.getElementById("well");
-  well.classList.remove("flash");
-  void well.offsetWidth;
-  well.classList.add("flash");
-}
-    
-    #well {
+    #well-frame {
       position: absolute;
       left: 50%;
       bottom: 0;
-      width: 300px;
-      height: 140px;
+      width: 320px;
+      height: 155px;
       transform: translateX(-50%);
       border-radius: 50% / 44%;
-      background:
-        radial-gradient(circle at 50% 38%, rgba(129, 186, 255, 0.25), rgba(40, 68, 128, 0.10) 45%, rgba(10,15,35,0.0) 65%),
-        linear-gradient(180deg, rgba(18, 24, 48, 0.9), rgba(8, 11, 23, 0.98));
+      background: linear-gradient(180deg, rgba(36, 46, 78, 0.95), rgba(12, 16, 30, 0.98));
       box-shadow:
-        0 0 45px rgba(86, 139, 255, 0.22),
-        inset 0 0 20px rgba(120, 170, 255, 0.15),
-        inset 0 -18px 30px rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(149, 189, 255, 0.18);
-      overflow: visible;
-    }
-    
-    #coin-mask {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 2;
-}
-  
-    #water {
-      position: absolute;
-      left: 50%;
-      top: 20px;
-      width: 225px;
-      height: 56px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 50% 45%, rgba(163, 206, 255, 0.26), rgba(76, 126, 219, 0.10) 55%, rgba(0,0,0,0) 70%);
-      box-shadow:
-        0 0 18px rgba(117, 176, 255, 0.18),
-        inset 0 0 14px rgba(178, 220, 255, 0.13);
+        0 0 55px rgba(86, 139, 255, 0.18),
+        inset 0 2px 8px rgba(255,255,255,0.08),
+        inset 0 -24px 34px rgba(0,0,0,0.42);
+      border: 1px solid rgba(165, 198, 255, 0.18);
     }
 
-    #coins-layer, #ripples-layer, #particles-layer {
+    #well-frame::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+      filter: blur(1px);
+    }
+
+    #well-frame.flash {
+      animation: wellPulse 1.2s ease;
+    }
+
+    @keyframes wellPulse {
+      0% {
+        box-shadow:
+          0 0 55px rgba(86, 139, 255, 0.18),
+          inset 0 2px 8px rgba(255,255,255,0.08),
+          inset 0 -24px 34px rgba(0,0,0,0.42);
+      }
+      50% {
+        box-shadow:
+          0 0 95px rgba(140, 190, 255, 0.65),
+          inset 0 2px 8px rgba(255,255,255,0.12),
+          inset 0 -24px 34px rgba(0,0,0,0.42);
+      }
+      100% {
+        box-shadow:
+          0 0 55px rgba(86, 139, 255, 0.18),
+          inset 0 2px 8px rgba(255,255,255,0.08),
+          inset 0 -24px 34px rgba(0,0,0,0.42);
+      }
+    }
+
+    #well-inner {
+      position: absolute;
+      left: 50%;
+      top: 14px;
+      width: 245px;
+      height: 76px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, rgba(13, 19, 42, 0.95), rgba(4, 7, 18, 1));
+      box-shadow:
+        inset 0 0 18px rgba(0, 0, 0, 0.55),
+        0 0 12px rgba(111, 164, 255, 0.08);
+    }
+
+    #coin-mask {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #water {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(172, 217, 255, 0.28), rgba(88, 134, 227, 0.14) 45%, rgba(0,0,0,0) 70%);
+      box-shadow:
+        0 0 22px rgba(118, 176, 255, 0.18),
+        inset 0 0 18px rgba(194, 229, 255, 0.08);
+      z-index: 2;
+    }
+
+    #ripples-layer, #particles-layer {
       position: absolute;
       inset: 0;
       pointer-events: none;
@@ -131,30 +188,30 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background:
-        radial-gradient(circle at 35% 35%, #fff7bf 0%, #ffe27a 25%, #e0b645 55%, #9c6f13 100%);
+      background: radial-gradient(circle at 35% 35%, #fff7bf 0%, #ffe27a 25%, #e0b645 55%, #9c6f13 100%);
       box-shadow:
         0 0 10px rgba(255, 214, 94, 0.4),
         0 0 20px rgba(255, 214, 94, 0.15);
-      animation: coinFall 2.8s ease-in forwards;
+      animation: coinDropIntoWell 1.8s ease-in forwards;
+      z-index: 1;
     }
 
-    @keyframes coinFall {
+    @keyframes coinDropIntoWell {
       0% {
-        transform: translateY(0) scale(0.9);
+        transform: translateY(-80px) scale(0.95);
         opacity: 0;
       }
       10% { opacity: 1; }
       100% {
-        transform: translateY(430px) scale(1);
-        opacity: 0.85;
+        transform: translateY(78px) scale(0.72);
+        opacity: 0.12;
       }
     }
 
     .ripple {
       position: absolute;
       left: 50%;
-      bottom: 42px;
+      bottom: 144px;
       width: 26px;
       height: 10px;
       transform: translateX(-50%);
@@ -171,8 +228,8 @@
         opacity: 0.8;
       }
       100% {
-        width: 260px;
-        height: 58px;
+        width: 220px;
+        height: 52px;
         opacity: 0;
       }
     }
@@ -202,19 +259,19 @@
     #affirmation {
       position: absolute;
       left: 50%;
-      bottom: 40vh;
+      bottom: 42vh;
       transform: translateX(-50%);
-      width: min(78vw, 900px);
+      width: min(80vw, 700px);
       text-align: center;
       color: #dde8ff;
-      font-size: clamp(22px, 2.5vw, 34px);
+      font-size: clamp(22px, 2.4vw, 34px);
       line-height: 1.35;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
       text-shadow:
-        0 0 10px rgba(130, 177, 255, 0.5),
-        0 0 25px rgba(130, 177, 255, 0.18);
+        0 0 8px rgba(130, 177, 255, 0.45),
+        0 0 25px rgba(130, 177, 255, 0.16);
       opacity: 0;
-      transition: opacity 0.9s ease;
+      transition: opacity 0.8s ease;
       pointer-events: none;
     }
 
@@ -223,28 +280,31 @@
       top: 18px;
       right: 18px;
       font: 12px/1.2 Arial, sans-serif;
-      color: rgba(220, 232, 255, 0.75);
+      color: rgba(225, 236, 255, 0.78);
       background: rgba(8, 12, 24, 0.55);
-      border: 1px solid rgba(132, 168, 255, 0.18);
+      border: 1px solid rgba(132, 168, 255, 0.16);
       border-radius: 999px;
-      padding: 8px 12px;
-      backdrop-filter: blur(6px);
+      padding: 8px 13px;
+      backdrop-filter: blur(8px);
     }
   </style>
 </head>
 <body>
   <div id="scene">
+    <div id="floor-glow"></div>
     <div class="mist"></div>
 
     <div id="well-wrap">
+      <div id="well-shadow"></div>
       <div id="well-glow"></div>
-      <div id="well">
-        <div id="coin-mask"></div
-        <div id="water"></div>
+      <div id="well-frame">
+        <div id="well-inner">
+          <div id="coin-mask"></div>
+          <div id="water"></div>
+        </div>
       </div>
     </div>
 
-    <div id="coins-layer"></div>
     <div id="ripples-layer"></div>
     <div id="particles-layer"></div>
     <div id="affirmation"></div>
@@ -262,28 +322,38 @@
       "your blessing is already on its way…",
       "the well has heard your intention…"
     ];
+
     const smallAffirmations = [
       "your wish has been received…",
       "the well has heard you…",
       "energy is moving…"
-];
+    ];
 
     const bigAffirmations = [
       "🌌 a powerful shift has begun…",
       "✨ the universe is moving in your favor…",
       "🔮 this intention carries strong energy…"
-];
+    ];
+
     const PUSHER_KEY = "a3c72b1712fa1d637b30";
     const PUSHER_CLUSTER = "us2";
 
-    const coinsLayer = document.getElementById("coins-layer");
     const ripplesLayer = document.getElementById("ripples-layer");
     const particlesLayer = document.getElementById("particles-layer");
     const affirmation = document.getElementById("affirmation");
     const status = document.getElementById("status");
+    const wellFrame = document.getElementById("well-frame");
+    const coinMask = document.getElementById("coin-mask");
 
-    function showAffirmation(username = "", customText = "") {
-      const line = customText || affirmations[Math.floor(Math.random() * affirmations.length)];
+    function pulseWell() {
+      wellFrame.classList.remove("flash");
+      void wellFrame.offsetWidth;
+      wellFrame.classList.add("flash");
+    }
+
+    function showAffirmation(username = "", customText = "", diamonds = 1) {
+      let pool = diamonds >= 10 ? bigAffirmations : smallAffirmations;
+      let line = customText || pool[Math.floor(Math.random() * pool.length)];
       affirmation.textContent = username ? `✨ ${username}, ${line}` : `✨ ${line}`;
       affirmation.style.opacity = "1";
       setTimeout(() => {
@@ -295,7 +365,7 @@
       for (let i = 0; i < count; i++) {
         const ripple = document.createElement("div");
         ripple.className = "ripple";
-        ripple.style.bottom = (40 + i * 2) + "px";
+        ripple.style.bottom = (144 + i * 2) + "px";
         ripplesLayer.appendChild(ripple);
         setTimeout(() => ripple.remove(), 2400);
       }
@@ -306,7 +376,7 @@
         const spark = document.createElement("div");
         spark.className = "spark";
         spark.style.left = `${48 + (Math.random() * 12 - 6)}%`;
-        spark.style.bottom = `${140 + Math.random() * 40}px`;
+        spark.style.bottom = `${150 + Math.random() * 30}px`;
         spark.style.animationDuration = `${2.3 + Math.random() * 2}s`;
         particlesLayer.appendChild(spark);
         setTimeout(() => spark.remove(), 4300);
@@ -317,45 +387,35 @@
       for (let i = 0; i < amount; i++) {
         const coin = document.createElement("div");
         coin.className = "coin";
-        coin.style.left = `${46 + (Math.random() * 12 - 6)}%`;
-        coin.style.top = `${6 + Math.random() * 18}%`;
-        coin.style.animationDuration = `${2.1 + Math.random() * 1.2}s`;
-        coinsLayer.appendChild(coin);
-        setTimeout(() => coin.remove(), 3200);
+        coin.style.left = `${40 + Math.random() * 20}%`;
+        coin.style.top = `-18px`;
+        coin.style.animationDuration = `${1.4 + Math.random() * 0.8}s`;
+        coinMask.appendChild(coin);
+        setTimeout(() => coin.remove(), 2200);
       }
     }
 
     function manifest(amount = 10, username = "", giftName = "", diamonds = 1) {
-      const rippleCount = diamonds >= 100 ? 3 : diamonds >= 10 ? 2 : 1;
-      const particleCount = Math.min(40, Math.max(10, amount));
+      let rippleCount = 1;
+      let particleCount = 10;
+      let custom = giftName ? `${giftName} has entered the well…` : "";
+
+      if (diamonds >= 100) {
+        rippleCount = 4;
+        particleCount = 40;
+        custom = "🌌 a powerful manifestation has entered the well…";
+      } else if (diamonds >= 10) {
+        rippleCount = 2;
+        particleCount = 20;
+      }
 
       dropCoins(amount);
       addRipple(rippleCount);
       addParticles(particleCount);
-
-      const custom = giftName ? `${giftName} has entered the well…` : "";
-      showAffirmation(username, custom);
+      pulseWell();
+      showAffirmation(username, custom, diamonds);
     }
-function manifest(amount = 10, username = "", giftName = "", diamonds = 1) {
-  let rippleCount = 1;
-  let particleCount = 10;
-  let custom = giftName ? `${giftName} has entered the well…` : "";
 
-  if (diamonds >= 100) {
-    rippleCount = 4;
-    particleCount = 40;
-    custom = "🌌 a powerful manifestation has entered the well…";
-  } else if (diamonds >= 10) {
-    rippleCount = 2;
-    particleCount = 20;
-  }
-
-  dropCoins(amount);
-  addRipple(rippleCount);
-  addParticles(particleCount);
-  showAffirmation(username, custom);
-}
-    
     const pusher = new Pusher(PUSHER_KEY, {
       cluster: PUSHER_CLUSTER
     });
@@ -363,8 +423,6 @@ function manifest(amount = 10, username = "", giftName = "", diamonds = 1) {
     const channel = pusher.subscribe("wishing-well");
 
     channel.bind("gift-received", function(data) {
-      console.log("EVENT RECEIVED:", data);
-
       const amount = Number(data.amount || 10);
       const username = data.username || "";
       const giftName = data.giftName || "";
