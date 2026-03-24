@@ -99,7 +99,15 @@
       border: 1px solid rgba(149, 189, 255, 0.18);
       overflow: visible;
     }
-
+    
+    #coin-mask {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+  
     #water {
       position: absolute;
       left: 50%;
@@ -234,6 +242,7 @@
     <div id="well-wrap">
       <div id="well-glow"></div>
       <div id="well">
+        <div id="coin-mask"></div
         <div id="water"></div>
       </div>
     </div>
