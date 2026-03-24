@@ -194,17 +194,34 @@ window.manifest = function(amount = 10, username = "") {
   setTimeout(() => aff.style.opacity = 0, 4000);
 };
 
-// Connect to TikFinity Desktop App local WebSocket
-const socket = new WebSocket("ws://127.0.0.1:21213/");
-
-socket.addEventListener("open", () => {
-  console.log("Connected to TikFinity");
+// Connect to Pusher App local WebSocket
+const pusher = new Pusher(PUSHER_KEY, {
+  cluster: PUSHER_CLUSTER
 });
 
-socket.addEventListener("message", (event) => {
-  try {
-    const data = JSON.parse(event.data);
-    console.log("TikFinity event:", data);
+const channel = pusher.subscribe("wishing-well");
+
+channel.bind("gift-received", function(data) {
+  console.log("EVENT RECEIVED:", data);
+
+  const amount = Number(data.amount || 10);
+  const username = data.username || "";
+  const giftName = data.giftName || "";
+  const diamonds = Number(data.diamonds || 1);
+
+  manifest(amount, username, giftName, diamonds);
+});
+
+pusher.connection.bind("connected", function() {
+  status.textContent = "Connected ✨";
+  setTimeout(() => {
+    status.textContent = "Waiting for blessings…";
+  }, 2000);
+});
+
+pusher.connection.bind("error", function() {
+  status.textContent = "Connection issue";
+});
 
     // Gift event handling
     if (data.event === "gift") {
@@ -232,14 +249,7 @@ socket.addEventListener("message", (event) => {
     console.error("Bad TikFinity message", err);
   }
 });
-
-socket.addEventListener("close", () => {
-  console.log("TikFinity disconnected");
-});
-
-socket.addEventListener("error", (err) => {
-  console.error("WebSocket error", err);
-});
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 </script>
 
 </script>
