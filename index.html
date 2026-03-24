@@ -162,9 +162,85 @@ window.manifest = function(amount = 10, username = "") {
 
 
 // 🧪 AUTO TEST (REMOVE LATER)
-setInterval(() => {
-  manifest(8);
-}, 7000);
+<script>
+const affirmations = [
+  "Your wish has been received…",
+  "The universe is aligning for you…",
+  "Abundance flows toward you…",
+  "It is already yours…",
+  "Energy is moving in your favor…",
+  "You are in perfect alignment…",
+  "Your desire is manifesting now…"
+];
+
+window.manifest = function(amount = 10, username = "") {
+  for (let i = 0; i < amount; i++) {
+    const coin = document.createElement("div");
+    coin.className = "coin";
+    coin.style.left = (45 + Math.random() * 10) + "%";
+    document.body.appendChild(coin);
+    setTimeout(() => coin.remove(), 3000);
+  }
+
+  const ripple = document.createElement("div");
+  ripple.className = "ripple";
+  document.body.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 2000);
+
+  const text = affirmations[Math.floor(Math.random() * affirmations.length)];
+  const aff = document.getElementById("affirmation");
+  aff.innerText = username ? `✨ ${username}, ${text}` : text;
+  aff.style.opacity = 1;
+  setTimeout(() => aff.style.opacity = 0, 4000);
+};
+
+// Connect to TikFinity Desktop App local WebSocket
+const socket = new WebSocket("ws://127.0.0.1:21213/");
+
+socket.addEventListener("open", () => {
+  console.log("Connected to TikFinity");
+});
+
+socket.addEventListener("message", (event) => {
+  try {
+    const data = JSON.parse(event.data);
+    console.log("TikFinity event:", data);
+
+    // Gift event handling
+    if (data.event === "gift") {
+      const username =
+        data.username ||
+        data.nickname ||
+        data.user?.nickname ||
+        "";
+
+      const repeat =
+        Number(data.repeatCount) ||
+        Number(data.gift?.repeat_count) ||
+        1;
+
+      const diamonds =
+        Number(data.diamondCount) ||
+        Number(data.gift?.diamond_count) ||
+        1;
+
+      // Scale coin amount gently
+      const amount = Math.max(6, Math.min(60, repeat * Math.max(1, diamonds)));
+      manifest(amount, username);
+    }
+  } catch (err) {
+    console.error("Bad TikFinity message", err);
+  }
+});
+
+socket.addEventListener("close", () => {
+  console.log("TikFinity disconnected");
+});
+
+socket.addEventListener("error", (err) => {
+  console.error("WebSocket error", err);
+});
+</script>
 
 </script>
 
