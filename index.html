@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Midnight Manifesting Wishing Well</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0a0a1f, #000);
+  font-family: serif;
+}
+
+/* WELL */
+#well {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(120, 160, 255, 0.15);
+  box-shadow: 0 0 60px rgba(120,160,255,0.6);
+}
+
+/* COINS */
+.coin {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, gold, #b8860b);
+  top: -20px;
+  animation: fall 3s ease-in forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(500px);
+    opacity: 0.7;
+  }
+}
+
+/* RIPPLE */
+.ripple {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(150,200,255,0.5);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: ripple 2s ease-out forwards;
+}
+
+@keyframes ripple {
+  to {
+    width: 300px;
+    height: 120px;
+    opacity: 0;
+  }
+}
+
+/* AFFIRMATION TEXT */
+#affirmation {
+  position: absolute;
+  bottom: 260px;
+  width: 100%;
+  text-align: center;
+  color: #d6dcff;
+  font-size: 22px;
+  opacity: 0;
+  transition: opacity 2s;
+  text-shadow: 0 0 10px rgba(150,180,255,0.8);
+}
+
+/* PARTICLES */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(200,220,255,0.6);
+  border-radius: 50%;
+  animation: float 10s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="well"></div>
+<div id="affirmation"></div>
+
+<script>
+
+// ✨ AFFIRMATIONS
+const affirmations = [
+  "Your wish has been received…",
+  "The universe is aligning for you…",
+  "Abundance flows toward you…",
+  "It is already yours…",
+  "Energy is moving in your favor…",
+  "You are in perfect alignment…",
+  "Your desire is manifesting now…"
+];
+
+// 🌊 CREATE PARTICLES (background energy)
+for (let i = 0; i < 40; i++) {
+  let p = document.createElement("div");
+  p.className = "particle";
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDuration = (6 + Math.random() * 10) + "s";
+  document.body.appendChild(p);
+}
+
+// 🔮 MAIN FUNCTION (IMPORTANT)
+window.manifest = function(amount = 10, username = "") {
+
+  // DROP COINS
+  for (let i = 0; i < amount; i++) {
+    let coin = document.createElement("div");
+    coin.className = "coin";
+    coin.style.left = (45 + Math.random() * 10) + "%";
+
+    document.body.appendChild(coin);
+
+    setTimeout(() => coin.remove(), 3000);
+  }
+
+  // RIPPLE EFFECT
+  let ripple = document.createElement("div");
+  ripple.className = "ripple";
+  document.body.appendChild(ripple);
+
+  setTimeout(() => ripple.remove(), 2000);
+
+  // AFFIRMATION
+  let text = affirmations[Math.floor(Math.random() * affirmations.length)];
+  let aff = document.getElementById("affirmation");
+
+  if (username) {
+    aff.innerText = "✨ " + username + ", " + text;
+  } else {
+    aff.innerText = text;
+  }
+
+  aff.style.opacity = 1;
+
+  setTimeout(() => {
+    aff.style.opacity = 0;
+  }, 4000);
+};
+
+
+// 🧪 AUTO TEST (REMOVE LATER)
+setInterval(() => {
+  manifest(8);
+}, 7000);
+
+</script>
+
+</body>
+</html>
