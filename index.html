@@ -418,8 +418,8 @@
   position: absolute;
   left: 50%;
   top: 0;
-  width: 190px;
-  height: 46px;
+  width: 210px;
+  height: 56px;
   transform: translateX(-50%);
   border-radius: 50%;
   overflow: hidden;
@@ -882,8 +882,9 @@
         const c = coins[i];
         c.y += c.vy;
         c.x += c.vx;
-        c.r *= 0.991;
-        c.alpha *= 0.986;
+        c.rotation += c.vr;
+        c.r *= 0.992;
+        c.alpha *= 0.987;
 
    function drawCoin(c) {
   ctx.globalAlpha = c.alpha;
@@ -1073,7 +1074,7 @@
         custom = "✨ your intention is gaining strength…";
       }
 
-      spawnCoins(amount);
+      spawnCoins(Math.max(14, amount * 2));
       addRipple(rippleCount);
       addParticles(particleCount, includeDiamonds);
       pulseWell();
