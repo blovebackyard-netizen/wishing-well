@@ -7,26 +7,8 @@
 
   <style>
     :root {
-      --bg1: #04050d;
-      --bg2: #0b1020;
-      --bg3: #05070f;
-
-      --moon: rgba(187, 214, 255, 0.16);
-      --beam: rgba(170, 215, 255, 0.10);
-      --mist: rgba(181, 211, 255, 0.08);
-
       --silver: #dfe9ff;
-      --soft-blue: #9dc4ff;
-      --deep-blue: #3b66b8;
-      --diamond: #dff7ff;
-      --diamond2: #7ad8ff;
-      --gold1: #ffe79a;
-      --gold2: #d8a93f;
-      --gold3: #8d6113;
-
-      --phoenix1: #ffbf70;
-      --phoenix2: #ff8e4a;
-      --phoenix3: #ff5b6a;
+      --mist: rgba(181, 211, 255, 0.08);
     }
 
     * { box-sizing: border-box; }
@@ -37,7 +19,7 @@
       height: 100%;
       overflow: hidden;
       font-family: Georgia, "Times New Roman", serif;
-    background: url("/background.png") center/cover no-repeat;
+      background: url("/background.png") center/cover no-repeat;
       color: var(--silver);
     }
 
@@ -46,12 +28,12 @@
     body.scene-bloom #floor-glow,
     body.scene-bloom #side-glow-left,
     body.scene-bloom #side-glow-right {
-      filter: blur(18px) brightness(1.25);
+      filter: blur(18px) brightness(1.2);
       opacity: 1;
     }
 
     body.scene-bloom #scene::after {
-      opacity: 0.18;
+      opacity: 0.16;
     }
 
     #scene {
@@ -77,14 +59,22 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at center, transparent 42%, rgba(0, 0, 0, 0.18) 78%, rgba(0, 0, 0, 0.42) 100%);
+        radial-gradient(circle at center, transparent 42%, rgba(0, 0, 0, 0.18) 78%, rgba(0, 0, 0, 0.46) 100%);
       pointer-events: none;
       z-index: 99;
       opacity: 1;
       transition: opacity 0.9s ease;
     }
 
-    /* Atmospheric background */
+    /* Background atmosphere */
+    #moon-glow,
+    #light-beam,
+    #side-glow-left,
+    #side-glow-right,
+    #floor-glow {
+      opacity: 0.62;
+    }
+
     #moon-glow {
       position: absolute;
       left: 50%;
@@ -117,7 +107,6 @@
       filter: blur(9px);
       pointer-events: none;
       z-index: 1;
-      opacity: 0.82;
     }
 
     #side-glow-left,
@@ -130,7 +119,6 @@
       filter: blur(34px);
       pointer-events: none;
       z-index: 1;
-      opacity: 0.78;
     }
 
     #side-glow-left { left: -50px; }
@@ -177,7 +165,7 @@
       to { transform: translateX(3vw); opacity: 0.9; }
     }
 
-    /* Title / luxury branding */
+    /* Title */
     #title-wrap {
       position: absolute;
       top: 4.4vh;
@@ -193,10 +181,10 @@
       font-size: clamp(28px, 3.2vw, 48px);
       letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: rgba(232, 240, 255, 0.95);
+      color: rgba(232, 240, 255, 0.98);
       text-shadow:
-        0 0 12px rgba(149, 188, 255, 0.28),
-        0 0 34px rgba(125, 171, 255, 0.10);
+        0 0 12px rgba(149, 188, 255, 0.22),
+        0 0 34px rgba(125, 171, 255, 0.08);
     }
 
     #title-sub {
@@ -204,7 +192,7 @@
       font: 500 clamp(11px, 1vw, 14px)/1.4 Arial, sans-serif;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(209, 224, 255, 0.64);
+      color: rgba(209, 224, 255, 0.74);
     }
 
     #title-gems {
@@ -215,7 +203,7 @@
       text-shadow: 0 0 16px rgba(143, 231, 255, 0.25);
     }
 
-    /* Decorative diamond motifs */
+    /* Decorative diamonds */
     .diamond-orbit {
       position: absolute;
       width: 18px;
@@ -248,17 +236,17 @@
       to { transform: rotate(45deg) translateY(8px); opacity: 0.9; }
     }
 
-    /* Phoenix sigil / premium focal decoration */
+    /* Phoenix sigil */
     #phoenix-sigil {
       position: absolute;
       left: 50%;
-      bottom: 33vh;
+      bottom: 29vh;
       transform: translateX(-50%);
       width: 220px;
       height: 220px;
       pointer-events: none;
       z-index: 8;
-      opacity: 0.42;
+      opacity: 0.34;
       filter: drop-shadow(0 0 18px rgba(255, 154, 94, 0.18));
     }
 
@@ -268,11 +256,11 @@
       display: block;
     }
 
-    /* Character / phoenix event layer */
+    /* Phoenix event */
     #special-character {
       position: absolute;
       left: 50%;
-      bottom: 27vh;
+      bottom: 21vh;
       transform: translateX(-50%) translateY(24px) scale(0.88);
       width: 300px;
       height: 320px;
@@ -363,14 +351,14 @@
       100% { opacity: 0; transform: translateX(-50%) translateY(-108px) scale(1.18); }
     }
 
-    /* Well composition */
+    /* Well */
     #well-wrap {
       position: absolute;
       left: 50%;
-      bottom: 12vh;
+      bottom: 8vh;
       transform: translateX(-50%);
-      width: 400px;
-      height: 200px;
+      width: 360px;
+      height: 185px;
       perspective: 1000px;
       z-index: 12;
     }
@@ -378,10 +366,10 @@
     #well-shadow {
       position: absolute;
       left: 50%;
-      bottom: 18px;
+      bottom: 12px;
       transform: translateX(-50%);
-      width: 320px;
-      height: 86px;
+      width: 285px;
+      height: 74px;
       border-radius: 50%;
       background: rgba(0, 0, 0, 0.52);
       filter: blur(18px);
@@ -390,12 +378,12 @@
     #well-glow {
       position: absolute;
       left: 50%;
-      bottom: 22px;
-      width: 290px;
-      height: 90px;
+      bottom: 16px;
+      width: 258px;
+      height: 82px;
       transform: translateX(-50%);
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(120, 175, 255, 0.34), rgba(120, 175, 255, 0.02) 70%);
+      background: radial-gradient(circle, rgba(120, 175, 255, 0.30), rgba(120, 175, 255, 0.02) 70%);
       filter: blur(14px);
     }
 
@@ -403,8 +391,8 @@
       position: absolute;
       left: 50%;
       bottom: 0;
-      width: 360px;
-      height: 178px;
+      width: 320px;
+      height: 154px;
       transform: translateX(-50%) rotateX(14deg);
       transform-style: preserve-3d;
       border-radius: 50% / 44%;
@@ -424,8 +412,8 @@
       left: 50%;
       top: 10px;
       transform: translateX(-50%);
-      width: 284px;
-      height: 260px;
+      width: 252px;
+      height: 26px;
       border-radius: 50%;
       background: linear-gradient(180deg, rgba(255,255,255,0.17), rgba(255,255,255,0.02));
       filter: blur(1px);
@@ -437,8 +425,8 @@
       left: 50%;
       top: 0;
       transform: translateX(-50%);
-      width: 308px;
-      height: 38px;
+      width: 276px;
+      height: 34px;
       border-radius: 50%;
       border: 1px solid rgba(207, 228, 255, 0.10);
       opacity: 0.55;
@@ -473,8 +461,8 @@
       position: absolute;
       left: 50%;
       top: 16px;
-      width: 278px;
-      height: 92px;
+      width: 248px;
+      height: 82px;
       transform: translateX(-50%) rotateX(66deg);
       transform-style: preserve-3d;
       border-radius: 50%;
@@ -520,7 +508,7 @@
       opacity: 0.85;
     }
 
-    /* Scene particles and ripples */
+    /* Effects */
     #ripples-layer,
     #particles-layer,
     #blessing-layer {
@@ -531,8 +519,6 @@
 
     .ripple {
       position: absolute;
-      left: 50%;
-      bottom: 156px;
       width: 28px;
       height: 10px;
       transform: translateX(-50%);
@@ -549,8 +535,8 @@
         opacity: 0.82;
       }
       100% {
-        width: 256px;
-        height: 56px;
+        width: 230px;
+        height: 52px;
         opacity: 0;
       }
     }
@@ -587,7 +573,7 @@
       }
     }
 
-    /* Text / ritual UI */
+    /* Text */
     #affirmation {
       position: absolute;
       left: 50%;
@@ -595,13 +581,14 @@
       transform: translateX(-50%);
       width: min(82vw, 860px);
       text-align: center;
-      color: #e4ecff;
+      color: #eef4ff;
       font-size: clamp(24px, 2.65vw, 38px);
       line-height: 1.36;
       letter-spacing: 0.03em;
       text-shadow:
-        0 0 10px rgba(130, 177, 255, 0.45),
-        0 0 30px rgba(130, 177, 255, 0.16);
+        0 0 10px rgba(130, 177, 255, 0.55),
+        0 0 34px rgba(0, 0, 0, 0.45),
+        0 0 25px rgba(130, 177, 255, 0.16);
       opacity: 0;
       transition: opacity 0.8s ease;
       pointer-events: none;
@@ -805,14 +792,6 @@
       "the path is beginning to open…"
     ];
 
-    const bigAffirmations = [
-      "🌌 a powerful manifestation has entered the well…",
-      "✨ the universe is moving in your favor…",
-      "🔮 this intention carries strong energy…",
-      "💫 a major shift is taking place…",
-      "🌙 the portal is opening for this wish…"
-    ];
-
     const phoenixAffirmations = [
       "🔥 the phoenix rises with your intention…",
       "💎 diamond energy has awakened the flame…",
@@ -823,6 +802,8 @@
     const PUSHER_KEY = "a3c72b1712fa1d637b30";
     const PUSHER_CLUSTER = "us2";
 
+    const scene = document.getElementById("scene");
+    const wellWrap = document.getElementById("well-wrap");
     const ripplesLayer = document.getElementById("ripples-layer");
     const particlesLayer = document.getElementById("particles-layer");
     const blessingLayer = document.getElementById("blessing-layer");
@@ -833,6 +814,17 @@
     const specialCharacter = document.getElementById("special-character");
 
     let energy = 0;
+
+    function getWellAnchor() {
+      const sceneRect = scene.getBoundingClientRect();
+      const wellRect = wellWrap.getBoundingClientRect();
+
+      return {
+        centerX: wellRect.left - sceneRect.left + (wellRect.width / 2),
+        bottomY: sceneRect.bottom - wellRect.bottom,
+        topY: wellRect.top - sceneRect.top
+      };
+    }
 
     /* Canvas coin engine */
     const canvas = document.getElementById("coin-canvas");
@@ -852,9 +844,11 @@
       return {
         x: rect.width * (0.38 + Math.random() * 0.24),
         y: -12 - Math.random() * 18,
-        r: 6 + Math.random() * 4,
+        r: 5 + Math.random() * 3,
         vy: 2 + Math.random() * 2.6,
         vx: (Math.random() - 0.5) * 0.5,
+        rotation: Math.random() * Math.PI,
+        vr: (Math.random() - 0.5) * 0.05,
         alpha: 1
       };
     }
@@ -865,35 +859,68 @@
       }
     }
 
-    function drawCoin(c) {
-      const gradient = ctx.createRadialGradient(
-        c.x - c.r * 0.3,
-        c.y - c.r * 0.3,
-        1,
-        c.x,
-        c.y,
-        c.r
-      );
-      gradient.addColorStop(0, "#fff7bf");
-      gradient.addColorStop(0.28, "#ffe27a");
-      gradient.addColorStop(0.60, "#d8a93f");
-      gradient.addColorStop(1, "#8d6113");
+   function drawCoin(c) {
+  ctx.globalAlpha = c.alpha;
 
-      ctx.globalAlpha = c.alpha;
-      ctx.beginPath();
-      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-      ctx.fillStyle = gradient;
-      ctx.fill();
+  const size = c.r * 2.2;
 
-      ctx.beginPath();
-      ctx.arc(c.x - c.r * 0.22, c.y - c.r * 0.22, c.r * 0.18, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255,255,255,0.35)";
-      ctx.fill();
-    }
+  // outer diamond glow
+  const glow = ctx.createRadialGradient(c.x, c.y, 1, c.x, c.y, size);
+  glow.addColorStop(0, "rgba(223, 247, 255, 0.55)");
+  glow.addColorStop(0.45, "rgba(122, 216, 255, 0.22)");
+  glow.addColorStop(1, "rgba(122, 216, 255, 0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(c.x, c.y, size, 0, Math.PI * 2);
+  ctx.fill();
+
+  // main diamond shape
+  ctx.save();
+  ctx.translate(c.x, c.y);
+  ctx.rotate(Math.PI / 4);
+
+  const grad = ctx.createLinearGradient(-size, -size, size, size);
+  grad.addColorStop(0, "#f6fdff");
+  grad.addColorStop(0.25, "#dff7ff");
+  grad.addColorStop(0.55, "#9fe9ff");
+  grad.addColorStop(0.8, "#67cfff");
+  grad.addColorStop(1, "#dff7ff");
+
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.moveTo(0, -size * 0.75);
+  ctx.lineTo(size * 0.55, 0);
+  ctx.lineTo(0, size * 0.85);
+  ctx.lineTo(-size * 0.55, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  // inner facet
+  ctx.fillStyle = "rgba(255,255,255,0.35)";
+  ctx.beginPath();
+  ctx.moveTo(0, -size * 0.45);
+  ctx.lineTo(size * 0.28, 0);
+  ctx.lineTo(0, size * 0.45);
+  ctx.lineTo(-size * 0.28, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  // top sparkle
+  ctx.fillStyle = "rgba(255,255,255,0.65)";
+  ctx.beginPath();
+  ctx.moveTo(0, -size * 0.62);
+  ctx.lineTo(size * 0.12, -size * 0.18);
+  ctx.lineTo(0, -size * 0.05);
+  ctx.lineTo(-size * 0.12, -size * 0.18);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.restore();
+}
 
     function animateCanvas() {
       const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
+      ctx.clearRect(0, 0, rect.width, rect.height); c.rotation += c.vr;
 
       for (let i = coins.length - 1; i >= 0; i--) {
         const c = coins[i];
@@ -909,11 +936,10 @@
         }
       }
 
-      ctx.globalAlpha = 1;
+      ctx.rotate(Math.PI / 4);
       requestAnimationFrame(animateCanvas);
     }
 
-    /* Scene helpers */
     function pulseWell() {
       wellFrame.classList.remove("flash");
       void wellFrame.offsetWidth;
@@ -930,6 +956,10 @@
     }
 
     function triggerPhoenix() {
+      const anchor = getWellAnchor();
+      specialCharacter.style.left = `${anchor.centerX}px`;
+      specialCharacter.style.bottom = `${anchor.bottomY + 118}px`;
+
       specialCharacter.classList.remove("show");
       void specialCharacter.offsetWidth;
       specialCharacter.classList.add("show");
@@ -992,22 +1022,29 @@
     }
 
     function addRipple(count = 1) {
+      const anchor = getWellAnchor();
+
       for (let i = 0; i < count; i++) {
         const ripple = document.createElement("div");
         ripple.className = "ripple";
-        ripple.style.bottom = (156 + i * 2) + "px";
+        ripple.style.left = `${anchor.centerX}px`;
+        ripple.style.bottom = `${anchor.bottomY + 72 + i * 2}px`;
+
         ripplesLayer.appendChild(ripple);
         setTimeout(() => ripple.remove(), 2400);
       }
     }
 
     function addParticles(power = 12, includeDiamonds = false) {
+      const anchor = getWellAnchor();
+
       for (let i = 0; i < power; i++) {
         const spark = document.createElement("div");
         spark.className = Math.random() < 0.2 && includeDiamonds ? "diamond-spark" : "spark";
-        spark.style.left = `${48 + (Math.random() * 16 - 8)}%`;
-        spark.style.bottom = `${150 + Math.random() * 46}px`;
+        spark.style.left = `${anchor.centerX + (Math.random() * 90 - 45)}px`;
+        spark.style.bottom = `${anchor.bottomY + 86 + Math.random() * 42}px`;
         spark.style.animationDuration = `${2.1 + Math.random() * 2.2}s`;
+
         particlesLayer.appendChild(spark);
         setTimeout(() => spark.remove(), 4300);
       }
@@ -1053,7 +1090,6 @@
       showAffirmation(username, custom, diamonds);
     }
 
-    /* Pusher realtime hookup */
     const pusher = new Pusher(PUSHER_KEY, {
       cluster: PUSHER_CLUSTER
     });
