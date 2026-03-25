@@ -248,10 +248,7 @@
       z-index: 12;
     }
 
-    #well-shadow {
-      display: none;
-    }
-
+    #well-shadow,
     #well-glow {
       display: none;
     }
@@ -302,13 +299,13 @@
     }
 
     #coin-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 15;
-  pointer-events: none;
-}
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 15;
+      pointer-events: none;
+    }
 
     #water {
       position: absolute;
@@ -508,24 +505,24 @@
       18% { opacity: 1; }
       100% { opacity: 0; transform: translateX(-50%) translateY(-26px) scale(1.04); }
     }
-    
-    #phoenix-image {
-  position: absolute;
-  left: 50%;
-  bottom: 22vh;
-  transform: translateX(-50%) scale(0.8);
-  width: 320px;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 30;
-  transition: opacity 0.5s ease, transform 0.6s ease;
-  filter: drop-shadow(0 0 25px rgba(255, 140, 90, 0.35));
-}
 
-#phoenix-image.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-40px) scale(1);
-}
+    #phoenix-image {
+      position: absolute;
+      left: 50%;
+      bottom: 22vh;
+      transform: translateX(-50%) scale(0.8);
+      width: 320px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 30;
+      transition: opacity 0.5s ease, transform 0.6s ease;
+      filter: drop-shadow(0 0 25px rgba(255, 140, 90, 0.35));
+    }
+
+    #phoenix-image.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-40px) scale(1);
+    }
   </style>
 </head>
 <body>
@@ -549,8 +546,7 @@
     <div class="diamond-orbit diamond-low-left"></div>
     <div class="diamond-orbit diamond-low-right"></div>
 
-
-    <img id="phoenix-image" src="phoenix.png" />
+    <img id="phoenix-image" src="/phoenix.png" alt="" />
 
     <div id="well-wrap">
       <div id="well-shadow"></div>
@@ -615,7 +611,7 @@
     const status = document.getElementById("status");
     const energyFill = document.getElementById("energy-fill");
     const wellFrame = document.getElementById("well-frame");
-    const specialCharacter = document.getElementById("special-character");
+    const phoenixImage = document.getElementById("phoenix-image");
 
     let energy = 0;
 
@@ -643,22 +639,22 @@
     }
 
     function makeCoin() {
-  const rect = canvas.getBoundingClientRect();
-  const anchor = getWellAnchor();
+      const rect = canvas.getBoundingClientRect();
+      const anchor = getWellAnchor();
 
-  return {
-    x: anchor.centerX + (Math.random() * 120 - 60),
-    y: -40 - Math.random() * 120,
-    targetX: anchor.centerX + (Math.random() * 80 - 40),
-    targetY: rect.height - anchor.bottomY + 18,
-    r: 7 + Math.random() * 3,
-    vy: 3.6 + Math.random() * 2.4,
-    vx: (Math.random() - 0.5) * 0.6,
-    rotation: Math.random() * Math.PI,
-    vr: (Math.random() - 0.5) * 0.08,
-    alpha: 1
-  };
-}
+      return {
+        x: anchor.centerX + (Math.random() * 120 - 60),
+        y: -40 - Math.random() * 120,
+        targetX: anchor.centerX + (Math.random() * 80 - 40),
+        targetY: rect.height - anchor.bottomY + 18,
+        r: 7 + Math.random() * 3,
+        vy: 3.6 + Math.random() * 2.4,
+        vx: (Math.random() - 0.5) * 0.6,
+        rotation: Math.random() * Math.PI,
+        vr: (Math.random() - 0.5) * 0.08,
+        alpha: 1
+      };
+    }
 
     function spawnCoins(amount = 8) {
       for (let i = 0; i < amount; i++) {
@@ -717,20 +713,20 @@
       ctx.clearRect(0, 0, rect.width, rect.height);
 
       for (let i = coins.length - 1; i >= 0; i--) {
-  const c = coins[i];
+        const c = coins[i];
 
-  c.y += c.vy;
-  c.x += (c.targetX - c.x) * 0.015 + c.vx;
-  c.rotation += c.vr;
-  c.r *= 0.994;
-  c.alpha *= 0.988;
+        c.y += c.vy;
+        c.x += (c.targetX - c.x) * 0.015 + c.vx;
+        c.rotation += c.vr;
+        c.r *= 0.994;
+        c.alpha *= 0.988;
 
-  drawCoin(c);
+        drawCoin(c);
 
-  if (c.alpha < 0.05 || c.y > c.targetY || c.r < 1.4) {
-    coins.splice(i, 1);
-  }
-}
+        if (c.alpha < 0.05 || c.y > c.targetY || c.r < 1.4) {
+          coins.splice(i, 1);
+        }
+      }
 
       ctx.globalAlpha = 1;
       requestAnimationFrame(animateCanvas);
@@ -753,15 +749,16 @@
 
     function triggerPhoenix() {
       const anchor = getWellAnchor();
-      specialCharacter.style.left = `${anchor.centerX}px`;
-      specialCharacter.style.bottom = `${anchor.bottomY + 70}px`;
 
-      specialCharacter.classList.remove("show");
-      void specialCharacter.offsetWidth;
-      specialCharacter.classList.add("show");
+      phoenixImage.style.left = `${anchor.centerX}px`;
+      phoenixImage.style.bottom = `${anchor.bottomY + 70}px`;
+
+      phoenixImage.classList.remove("show");
+      void phoenixImage.offsetWidth;
+      phoenixImage.classList.add("show");
 
       setTimeout(() => {
-        specialCharacter.classList.remove("show");
+        phoenixImage.classList.remove("show");
       }, 3000);
     }
 
@@ -797,16 +794,16 @@
     function showAffirmation(username = "", customText = "", diamonds = 1) {
       let pool = smallAffirmations;
 
-      if (diamonds >= 100) {
+      if (diamonds >= 500) {
         pool = phoenixAffirmations;
-      } else if (diamonds >= 10) {
+      } else if (diamonds >= 50) {
         pool = mediumAffirmations;
       }
 
       const line = customText || pool[Math.floor(Math.random() * pool.length)];
 
       affirmation.textContent =
-        username && diamonds < 10
+        username && diamonds < 50
           ? `✨ ${username}, ${line}`
           : `✨ ${line}`;
 
@@ -847,53 +844,40 @@
     }
 
     function manifest(amount = 10, username = "", giftName = "", diamonds = 1) {
+      let rippleCount = 1;
+      let particleCount = 10;
+      let energyGain = 6;
+      let includeDiamonds = false;
+      let custom = giftName ? `${giftName} has entered the well…` : "";
 
-  let rippleCount = 1;
-  let particleCount = 10;
-  let energyGain = 6;
-  let includeDiamonds = false;
-  let custom = giftName ? `${giftName} has entered the well…` : "";
+      if (diamonds < 50) {
+        rippleCount = 1;
+        particleCount = 10;
+        energyGain = 5;
+      } else if (diamonds >= 50 && diamonds < 500) {
+        rippleCount = 2;
+        particleCount = 20;
+        energyGain = 12;
+        includeDiamonds = true;
+        custom = "✨ your intention is gaining strength…";
+      } else if (diamonds >= 500) {
+        rippleCount = 4;
+        particleCount = 35;
+        energyGain = 30;
+        includeDiamonds = true;
+        custom = "💎 a powerful blessing has entered the well…";
+        triggerPhoenix();
+        pulseScene();
+        showBlessingText("Phoenix Blessing Activated");
+      }
 
-  // 🟢 SMALL GIFTS (1–49)
-  if (diamonds < 50) {
-    rippleCount = 1;
-    particleCount = 10;
-    energyGain = 5;
-  }
-
-  // 🔵 MEDIUM GIFTS (50–499)
-  else if (diamonds >= 50 && diamonds < 500) {
-    rippleCount = 2;
-    particleCount = 20;
-    energyGain = 12;
-    includeDiamonds = true;
-    custom = "✨ your intention is gaining strength…";
-  }
-
-  // 🟣 BIG GIFTS (500+)
-  else if (diamonds >= 500) {
-    rippleCount = 4;
-    particleCount = 35;
-    energyGain = 30;
-    includeDiamonds = true;
-
-    custom = "💎 a powerful blessing has entered the well…";
-    status.textContent = "✨ A powerful blessing has been received ✨";
-
-    // 🔥 THIS IS YOUR PHOENIX TRIGGER
-    triggerPhoenix();
-    pulseScene();
-    showBlessingText("Phoenix Blessing Activated");
-  }
-
-  // 💥 APPLY EFFECTS
-  spawnCoins(Math.max(14, amount * 2));
-  addRipple(rippleCount);
-  addParticles(particleCount, includeDiamonds);
-  pulseWell();
-  updateEnergy(energyGain);
-  showAffirmation(username, custom, diamonds);
-}
+      spawnCoins(Math.max(14, amount * 2));
+      addRipple(rippleCount);
+      addParticles(particleCount, includeDiamonds);
+      pulseWell();
+      updateEnergy(energyGain);
+      showAffirmation(username, custom, diamonds);
+    }
 
     const pusher = new Pusher(PUSHER_KEY, {
       cluster: PUSHER_CLUSTER
@@ -909,7 +893,10 @@
 
       manifest(amount, username, giftName, diamonds);
 
-      status.textContent = "Blessing received ✨";
+      status.textContent = diamonds >= 500
+        ? "✨ A powerful blessing has been received ✨"
+        : "Blessing received ✨";
+
       setTimeout(() => {
         if (energy < 100) status.textContent = "Waiting for blessings…";
       }, 2500);
