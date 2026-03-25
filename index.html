@@ -414,7 +414,7 @@
       }
     }
 
-   #well-inner {
+  #well-inner {
   position: absolute;
   left: 50%;
   top: 0;
@@ -424,10 +424,11 @@
   border-radius: 50%;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 45%, rgba(20, 28, 58, 0.88), rgba(3, 6, 17, 0.96));
+    radial-gradient(circle at 50% 45%, rgba(170, 225, 255, 0.38), rgba(74, 140, 255, 0.20) 38%, rgba(8, 18, 44, 0.72) 68%, rgba(3, 6, 17, 0.92) 100%);
   box-shadow:
-    inset 0 0 18px rgba(0, 0, 0, 0.58),
-    0 0 18px rgba(111, 164, 255, 0.10);
+    inset 0 0 18px rgba(255, 255, 255, 0.10),
+    inset 0 -8px 20px rgba(0, 0, 0, 0.30),
+    0 0 20px rgba(118, 176, 255, 0.16);
 }
 
     #coin-canvas {
@@ -444,24 +445,24 @@
   border-radius: 50%;
   z-index: 2;
   background:
-    radial-gradient(circle at 50% 40%, rgba(220, 247, 255, 0.20), rgba(123, 175, 255, 0.10) 42%, rgba(0,0,0,0) 72%);
+    radial-gradient(circle at 50% 35%, rgba(235, 250, 255, 0.26), rgba(164, 218, 255, 0.18) 24%, rgba(84, 154, 255, 0.14) 50%, rgba(0, 0, 0, 0) 72%);
   box-shadow:
-    0 0 18px rgba(118, 176, 255, 0.14),
-    inset 0 0 14px rgba(194, 229, 255, 0.08);
+    0 0 20px rgba(118, 176, 255, 0.20),
+    inset 0 0 14px rgba(194, 229, 255, 0.10);
 }
 
     #water::before {
-      content: "";
-      position: absolute;
-      left: 14%;
-      top: 24%;
-      width: 72%;
-      height: 30%;
-      border-radius: 50%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
-      filter: blur(2px);
-      opacity: 0.85;
-    }
+  content: "";
+  position: absolute;
+  left: 18%;
+  top: 18%;
+  width: 64%;
+  height: 22%;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.02));
+  filter: blur(2px);
+  opacity: 0.95;
+}
 
     /* Effects */
     #ripples-layer,
@@ -795,18 +796,18 @@
     }
 
     function makeCoin() {
-      const rect = canvas.getBoundingClientRect();
-      return {
-        x: rect.width * (0.38 + Math.random() * 0.24),
-        y: -12 - Math.random() * 18,
-        r: 5 + Math.random() * 3,
-        vy: 2 + Math.random() * 2.6,
-        vx: (Math.random() - 0.5) * 0.5,
-        rotation: Math.random() * Math.PI,
-        vr: (Math.random() - 0.5) * 0.05,
-        alpha: 1
-      };
-    }
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: rect.width * (0.30 + Math.random() * 0.40),
+    y: -18 - Math.random() * 12,
+    r: 7 + Math.random() * 3,
+    vy: 2.8 + Math.random() * 2.6,
+    vx: (Math.random() - 0.5) * 0.8,
+    rotation: Math.random() * Math.PI,
+    vr: (Math.random() - 0.5) * 0.08,
+    alpha: 1
+  };
+}
 
     function spawnCoins(amount = 8) {
       for (let i = 0; i < amount; i++) {
@@ -884,16 +885,51 @@
         c.r *= 0.991;
         c.alpha *= 0.986;
 
-        drawCoin(c);
+   function drawCoin(c) {
+  ctx.globalAlpha = c.alpha;
 
-        if (c.alpha < 0.05 || c.y > rect.height + 20 || c.r < 1) {
-          coins.splice(i, 1);
-        }
-      }
+  const size = c.r * 2.1;
 
-      ctx.rotate(Math.PI / 4);
-      requestAnimationFrame(animateCanvas);
-    }
+  const glow = ctx.createRadialGradient(c.x, c.y, 1, c.x, c.y, size * 1.4);
+  glow.addColorStop(0, "rgba(230, 250, 255, 0.55)");
+  glow.addColorStop(0.45, "rgba(122, 216, 255, 0.25)");
+  glow.addColorStop(1, "rgba(122, 216, 255, 0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(c.x, c.y, size * 1.2, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.save();
+  ctx.translate(c.x, c.y);
+  ctx.rotate((Math.PI / 4) + c.rotation);
+
+  const grad = ctx.createLinearGradient(-size, -size, size, size);
+  grad.addColorStop(0, "#ffffff");
+  grad.addColorStop(0.22, "#e6fbff");
+  grad.addColorStop(0.52, "#b6efff");
+  grad.addColorStop(0.78, "#74d8ff");
+  grad.addColorStop(1, "#dff7ff");
+
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.moveTo(0, -size * 0.82);
+  ctx.lineTo(size * 0.58, 0);
+  ctx.lineTo(0, size * 0.92);
+  ctx.lineTo(-size * 0.58, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = "rgba(255,255,255,0.45)";
+  ctx.beginPath();
+  ctx.moveTo(0, -size * 0.46);
+  ctx.lineTo(size * 0.24, 0);
+  ctx.lineTo(0, size * 0.42);
+  ctx.lineTo(-size * 0.24, 0);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.restore();
+}
 
     function pulseWell() {
       wellFrame.classList.remove("flash");
