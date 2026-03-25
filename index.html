@@ -352,85 +352,42 @@
     }
 
     /* Well */
-   #well-wrap {
+  #well-wrap {
   position: absolute;
   left: 50%;
-  bottom: 13.8vh;
+  bottom: 13.2vh;
   transform: translateX(-50%);
-  width: 300px;
-  height: 150px;
+  width: 250px;
+  height: 90px;
   perspective: 1000px;
   z-index: 12;
 }
 
     #well-shadow {
-  position: absolute;
-  left: 50%;
-  bottom: 8px;
-  transform: translateX(-50%);
-  width: 235px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.42);
-  filter: blur(16px);
+  display: none;
 }
 
-    #well-glow {
-  position: absolute;
-  left: 50%;
-  bottom: 12px;
-  width: 220px;
-  height: 64px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(120, 175, 255, 0.22), rgba(120, 175, 255, 0.02) 70%);
-  filter: blur(12px);
+#well-glow {
+  display: none;
 }
 
-    #well-frame {
+#well-frame {
   position: absolute;
   left: 50%;
   bottom: 0;
-  width: 270px;
-  height: 128px;
-  transform: translateX(-50%) rotateX(14deg);
-  transform-style: preserve-3d;
-  border-radius: 50% / 44%;
-  background:
-    linear-gradient(180deg, rgba(37, 45, 75, 0.96), rgba(14, 18, 33, 0.98));
-  box-shadow:
-    0 0 75px rgba(86, 139, 255, 0.14),
-    inset 0 2px 10px rgba(255,255,255,0.10),
-    inset 0 -30px 40px rgba(0,0,0,0.44);
-  border: 1px solid rgba(170, 202, 255, 0.20);
+  width: 250px;
+  height: 90px;
+  transform: translateX(-50%);
+  background: transparent;
+  box-shadow: none;
+  border: none;
   overflow: visible;
 }
 
-    #well-frame::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 10px;
-      transform: translateX(-50%);
-      width: 252px;
-      height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.17), rgba(255,255,255,0.02));
-      filter: blur(1px);
-    }
-
-    #well-frame::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      width: 276px;
-      height: 34px;
-      border-radius: 50%;
-      border: 1px solid rgba(207, 228, 255, 0.10);
-      opacity: 0.55;
-    }
+#well-frame::before,
+#well-frame::after {
+  display: none;
+}
 
     #well-frame.flash {
       animation: wellPulse 1.15s ease;
@@ -460,18 +417,17 @@
    #well-inner {
   position: absolute;
   left: 50%;
-  top: 14px;
-  width: 210px;
-  height: 68px;
-  transform: translateX(-50%) rotateX(66deg);
-  transform-style: preserve-3d;
+  top: 0;
+  width: 190px;
+  height: 46px;
+  transform: translateX(-50%);
   border-radius: 50%;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 50%, rgba(12, 18, 40, 0.98), rgba(3, 6, 17, 1));
+    radial-gradient(circle at 50% 45%, rgba(20, 28, 58, 0.88), rgba(3, 6, 17, 0.96));
   box-shadow:
-    inset 0 0 22px rgba(0, 0, 0, 0.62),
-    0 0 14px rgba(111, 164, 255, 0.08);
+    inset 0 0 18px rgba(0, 0, 0, 0.58),
+    0 0 18px rgba(111, 164, 255, 0.10);
 }
 
     #coin-canvas {
@@ -482,18 +438,17 @@
       z-index: 1;
       pointer-events: none;
     }
-
-    #water {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      z-index: 2;
-      background:
-        radial-gradient(circle at 50% 40%, rgba(220, 247, 255, 0.22), rgba(123, 175, 255, 0.16) 42%, rgba(0,0,0,0) 72%);
-      box-shadow:
-        0 0 22px rgba(118, 176, 255, 0.18),
-        inset 0 0 18px rgba(194, 229, 255, 0.10);
-    }
+#water {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(220, 247, 255, 0.20), rgba(123, 175, 255, 0.10) 42%, rgba(0,0,0,0) 72%);
+  box-shadow:
+    0 0 18px rgba(118, 176, 255, 0.14),
+    inset 0 0 14px rgba(194, 229, 255, 0.08);
+}
 
     #water::before {
       content: "";
@@ -958,7 +913,7 @@
     function triggerPhoenix() {
       const anchor = getWellAnchor();
       specialCharacter.style.left = `${anchor.centerX}px`;
-      specialCharacter.style.bottom = `${anchor.bottomY + 118}px`;
+      specialCharacter.style.bottom = `${anchor.bottomY + 70}px`;
 
       specialCharacter.classList.remove("show");
       void specialCharacter.offsetWidth;
@@ -1028,7 +983,7 @@
         const ripple = document.createElement("div");
         ripple.className = "ripple";
         ripple.style.left = `${anchor.centerX}px`;
-        ripple.style.bottom = `${anchor.bottomY + 58 + i * 2}px`;
+        ripple.style.bottom = `${anchor.bottomY + 28 + i * 2}px`;
 
         ripplesLayer.appendChild(ripple);
         setTimeout(() => ripple.remove(), 2400);
@@ -1042,7 +997,7 @@
         const spark = document.createElement("div");
         spark.className = Math.random() < 0.2 && includeDiamonds ? "diamond-spark" : "spark";
         spark.style.left = `${anchor.centerX + (Math.random() * 90 - 45)}px`;
-        spark.style.bottom = `${anchor.bottomY + 68 + Math.random() * 42}px`;
+        spark.style.bottom = `${anchor.bottomY + 34 + Math.random() * 26}px`;
         spark.style.animationDuration = `${2.1 + Math.random() * 2.2}s`;
 
         particlesLayer.appendChild(spark);
