@@ -352,84 +352,69 @@
     }
 
     /* Well */
-  #well-wrap {
-  position: absolute;
-  left: 50%;
-  bottom: 13.2vh;
-  transform: translateX(-50%);
-  width: 250px;
-  height: 90px;
-  perspective: 1000px;
-  z-index: 12;
-}
+    #well-wrap {
+      position: absolute;
+      left: 50%;
+      bottom: 13.5vh;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 90px;
+      perspective: 1000px;
+      z-index: 12;
+    }
 
     #well-shadow {
-  display: none;
-}
+      display: none;
+    }
 
-#well-glow {
-  display: none;
-}
+    #well-glow {
+      display: none;
+    }
 
-#well-frame {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 250px;
-  height: 90px;
-  transform: translateX(-50%);
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  overflow: visible;
-}
+    #well-frame {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 250px;
+      height: 90px;
+      transform: translateX(-50%);
+      background: transparent;
+      box-shadow: none;
+      border: none;
+      overflow: visible;
+    }
 
-#well-frame::before,
-#well-frame::after {
-  display: none;
-}
+    #well-frame::before,
+    #well-frame::after {
+      display: none;
+    }
 
     #well-frame.flash {
       animation: wellPulse 1.15s ease;
     }
 
     @keyframes wellPulse {
-      0% {
-        box-shadow:
-          0 0 75px rgba(86, 139, 255, 0.14),
-          inset 0 2px 10px rgba(255,255,255,0.10),
-          inset 0 -30px 40px rgba(0,0,0,0.44);
-      }
-      50% {
-        box-shadow:
-          0 0 120px rgba(146, 201, 255, 0.54),
-          inset 0 2px 12px rgba(255,255,255,0.16),
-          inset 0 -30px 40px rgba(0,0,0,0.44);
-      }
-      100% {
-        box-shadow:
-          0 0 75px rgba(86, 139, 255, 0.14),
-          inset 0 2px 10px rgba(255,255,255,0.10),
-          inset 0 -30px 40px rgba(0,0,0,0.44);
-      }
+      0% { filter: brightness(1); }
+      50% { filter: brightness(1.22); }
+      100% { filter: brightness(1); }
     }
 
-  #well-inner {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 210px;
-  height: 56px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 45%, rgba(170, 225, 255, 0.38), rgba(74, 140, 255, 0.20) 38%, rgba(8, 18, 44, 0.72) 68%, rgba(3, 6, 17, 0.92) 100%);
-  box-shadow:
-    inset 0 0 18px rgba(255, 255, 255, 0.10),
-    inset 0 -8px 20px rgba(0, 0, 0, 0.30),
-    0 0 20px rgba(118, 176, 255, 0.16);
-}
+    #well-inner {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 210px;
+      height: 56px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(170, 225, 255, 0.38), rgba(74, 140, 255, 0.20) 38%, rgba(8, 18, 44, 0.72) 68%, rgba(3, 6, 17, 0.92) 100%);
+      box-shadow:
+        inset 0 0 18px rgba(255, 255, 255, 0.10),
+        inset 0 -8px 20px rgba(0, 0, 0, 0.30),
+        0 0 20px rgba(118, 176, 255, 0.16);
+    }
 
     #coin-canvas {
       position: absolute;
@@ -439,30 +424,31 @@
       z-index: 1;
       pointer-events: none;
     }
-#water {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  z-index: 2;
-  background:
-    radial-gradient(circle at 50% 35%, rgba(235, 250, 255, 0.26), rgba(164, 218, 255, 0.18) 24%, rgba(84, 154, 255, 0.14) 50%, rgba(0, 0, 0, 0) 72%);
-  box-shadow:
-    0 0 20px rgba(118, 176, 255, 0.20),
-    inset 0 0 14px rgba(194, 229, 255, 0.10);
-}
+
+    #water {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      z-index: 2;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(235, 250, 255, 0.26), rgba(164, 218, 255, 0.18) 24%, rgba(84, 154, 255, 0.14) 50%, rgba(0, 0, 0, 0) 72%);
+      box-shadow:
+        0 0 20px rgba(118, 176, 255, 0.20),
+        inset 0 0 14px rgba(194, 229, 255, 0.10);
+    }
 
     #water::before {
-  content: "";
-  position: absolute;
-  left: 18%;
-  top: 18%;
-  width: 64%;
-  height: 22%;
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.02));
-  filter: blur(2px);
-  opacity: 0.95;
-}
+      content: "";
+      position: absolute;
+      left: 18%;
+      top: 18%;
+      width: 64%;
+      height: 22%;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.02));
+      filter: blur(2px);
+      opacity: 0.95;
+    }
 
     /* Effects */
     #ripples-layer,
@@ -782,7 +768,6 @@
       };
     }
 
-    /* Canvas coin engine */
     const canvas = document.getElementById("coin-canvas");
     const ctx = canvas.getContext("2d");
     const coins = [];
@@ -796,18 +781,18 @@
     }
 
     function makeCoin() {
-  const rect = canvas.getBoundingClientRect();
-  return {
-    x: rect.width * (0.30 + Math.random() * 0.40),
-    y: -18 - Math.random() * 12,
-    r: 7 + Math.random() * 3,
-    vy: 2.8 + Math.random() * 2.6,
-    vx: (Math.random() - 0.5) * 0.8,
-    rotation: Math.random() * Math.PI,
-    vr: (Math.random() - 0.5) * 0.08,
-    alpha: 1
-  };
-}
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: rect.width * (0.30 + Math.random() * 0.40),
+        y: -18 - Math.random() * 12,
+        r: 7 + Math.random() * 3,
+        vy: 2.8 + Math.random() * 2.6,
+        vx: (Math.random() - 0.5) * 0.8,
+        rotation: Math.random() * Math.PI,
+        vr: (Math.random() - 0.5) * 0.08,
+        alpha: 1
+      };
+    }
 
     function spawnCoins(amount = 8) {
       for (let i = 0; i < amount; i++) {
@@ -815,68 +800,55 @@
       }
     }
 
-   function drawCoin(c) {
-  ctx.globalAlpha = c.alpha;
+    function drawCoin(c) {
+      ctx.globalAlpha = c.alpha;
 
-  const size = c.r * 2.2;
+      const size = c.r * 2.1;
 
-  // outer diamond glow
-  const glow = ctx.createRadialGradient(c.x, c.y, 1, c.x, c.y, size);
-  glow.addColorStop(0, "rgba(223, 247, 255, 0.55)");
-  glow.addColorStop(0.45, "rgba(122, 216, 255, 0.22)");
-  glow.addColorStop(1, "rgba(122, 216, 255, 0)");
-  ctx.fillStyle = glow;
-  ctx.beginPath();
-  ctx.arc(c.x, c.y, size, 0, Math.PI * 2);
-  ctx.fill();
+      const glow = ctx.createRadialGradient(c.x, c.y, 1, c.x, c.y, size * 1.4);
+      glow.addColorStop(0, "rgba(230, 250, 255, 0.55)");
+      glow.addColorStop(0.45, "rgba(122, 216, 255, 0.25)");
+      glow.addColorStop(1, "rgba(122, 216, 255, 0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, size * 1.2, 0, Math.PI * 2);
+      ctx.fill();
 
-  // main diamond shape
-  ctx.save();
-  ctx.translate(c.x, c.y);
-  ctx.rotate(Math.PI / 4);
+      ctx.save();
+      ctx.translate(c.x, c.y);
+      ctx.rotate((Math.PI / 4) + c.rotation);
 
-  const grad = ctx.createLinearGradient(-size, -size, size, size);
-  grad.addColorStop(0, "#f6fdff");
-  grad.addColorStop(0.25, "#dff7ff");
-  grad.addColorStop(0.55, "#9fe9ff");
-  grad.addColorStop(0.8, "#67cfff");
-  grad.addColorStop(1, "#dff7ff");
+      const grad = ctx.createLinearGradient(-size, -size, size, size);
+      grad.addColorStop(0, "#ffffff");
+      grad.addColorStop(0.22, "#e6fbff");
+      grad.addColorStop(0.52, "#b6efff");
+      grad.addColorStop(0.78, "#74d8ff");
+      grad.addColorStop(1, "#dff7ff");
 
-  ctx.fillStyle = grad;
-  ctx.beginPath();
-  ctx.moveTo(0, -size * 0.75);
-  ctx.lineTo(size * 0.55, 0);
-  ctx.lineTo(0, size * 0.85);
-  ctx.lineTo(-size * 0.55, 0);
-  ctx.closePath();
-  ctx.fill();
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(0, -size * 0.82);
+      ctx.lineTo(size * 0.58, 0);
+      ctx.lineTo(0, size * 0.92);
+      ctx.lineTo(-size * 0.58, 0);
+      ctx.closePath();
+      ctx.fill();
 
-  // inner facet
-  ctx.fillStyle = "rgba(255,255,255,0.35)";
-  ctx.beginPath();
-  ctx.moveTo(0, -size * 0.45);
-  ctx.lineTo(size * 0.28, 0);
-  ctx.lineTo(0, size * 0.45);
-  ctx.lineTo(-size * 0.28, 0);
-  ctx.closePath();
-  ctx.fill();
+      ctx.fillStyle = "rgba(255,255,255,0.45)";
+      ctx.beginPath();
+      ctx.moveTo(0, -size * 0.46);
+      ctx.lineTo(size * 0.24, 0);
+      ctx.lineTo(0, size * 0.42);
+      ctx.lineTo(-size * 0.24, 0);
+      ctx.closePath();
+      ctx.fill();
 
-  // top sparkle
-  ctx.fillStyle = "rgba(255,255,255,0.65)";
-  ctx.beginPath();
-  ctx.moveTo(0, -size * 0.62);
-  ctx.lineTo(size * 0.12, -size * 0.18);
-  ctx.lineTo(0, -size * 0.05);
-  ctx.lineTo(-size * 0.12, -size * 0.18);
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.restore();
-}
+      ctx.restore();
+    }
 
     function animateCanvas() {
       const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height); c.rotation += c.vr;
+      ctx.clearRect(0, 0, rect.width, rect.height);
 
       for (let i = coins.length - 1; i >= 0; i--) {
         const c = coins[i];
@@ -886,51 +858,16 @@
         c.r *= 0.992;
         c.alpha *= 0.987;
 
-   function drawCoin(c) {
-  ctx.globalAlpha = c.alpha;
+        drawCoin(c);
 
-  const size = c.r * 2.1;
+        if (c.alpha < 0.05 || c.y > rect.height + 6 || c.r < 1.4) {
+          coins.splice(i, 1);
+        }
+      }
 
-  const glow = ctx.createRadialGradient(c.x, c.y, 1, c.x, c.y, size * 1.4);
-  glow.addColorStop(0, "rgba(230, 250, 255, 0.55)");
-  glow.addColorStop(0.45, "rgba(122, 216, 255, 0.25)");
-  glow.addColorStop(1, "rgba(122, 216, 255, 0)");
-  ctx.fillStyle = glow;
-  ctx.beginPath();
-  ctx.arc(c.x, c.y, size * 1.2, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.save();
-  ctx.translate(c.x, c.y);
-  ctx.rotate((Math.PI / 4) + c.rotation);
-
-  const grad = ctx.createLinearGradient(-size, -size, size, size);
-  grad.addColorStop(0, "#ffffff");
-  grad.addColorStop(0.22, "#e6fbff");
-  grad.addColorStop(0.52, "#b6efff");
-  grad.addColorStop(0.78, "#74d8ff");
-  grad.addColorStop(1, "#dff7ff");
-
-  ctx.fillStyle = grad;
-  ctx.beginPath();
-  ctx.moveTo(0, -size * 0.82);
-  ctx.lineTo(size * 0.58, 0);
-  ctx.lineTo(0, size * 0.92);
-  ctx.lineTo(-size * 0.58, 0);
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.fillStyle = "rgba(255,255,255,0.45)";
-  ctx.beginPath();
-  ctx.moveTo(0, -size * 0.46);
-  ctx.lineTo(size * 0.24, 0);
-  ctx.lineTo(0, size * 0.42);
-  ctx.lineTo(-size * 0.24, 0);
-  ctx.closePath();
-  ctx.fill();
-
-  ctx.restore();
-}
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animateCanvas);
+    }
 
     function pulseWell() {
       wellFrame.classList.remove("flash");
