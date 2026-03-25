@@ -417,13 +417,13 @@
     }
 
     #coin-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-    }
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  pointer-events: none;
+}
 
     #water {
       position: absolute;
@@ -694,7 +694,6 @@
       <div id="well-glow"></div>
       <div id="well-frame">
         <div id="well-inner">
-          <canvas id="coin-canvas"></canvas>
           <div id="water"></div>
         </div>
       </div>
@@ -703,7 +702,7 @@
     <div id="ripples-layer"></div>
     <div id="particles-layer"></div>
     <div id="blessing-layer"></div>
-
+    <canvas id="coin-canvas"></canvas>
     <div id="affirmation"></div>
 
     <div id="energy-wrap">
@@ -781,18 +780,22 @@
     }
 
     function makeCoin() {
-      const rect = canvas.getBoundingClientRect();
-      return {
-        x: rect.width * (0.30 + Math.random() * 0.40),
-        y: -18 - Math.random() * 12,
-        r: 7 + Math.random() * 3,
-        vy: 2.8 + Math.random() * 2.6,
-        vx: (Math.random() - 0.5) * 0.8,
-        rotation: Math.random() * Math.PI,
-        vr: (Math.random() - 0.5) * 0.08,
-        alpha: 1
-      };
-    }
+  const rect = canvas.getBoundingClientRect();
+  const anchor = getWellAnchor();
+
+  return {
+    x: anchor.centerX + (Math.random() * 120 - 60),
+    y: -40 - Math.random() * 120,
+    targetX: anchor.centerX + (Math.random() * 80 - 40),
+    targetY: rect.height - anchor.bottomY + 18,
+    r: 7 + Math.random() * 3,
+    vy: 3.6 + Math.random() * 2.4,
+    vx: (Math.random() - 0.5) * 0.6,
+    rotation: Math.random() * Math.PI,
+    vr: (Math.random() - 0.5) * 0.08,
+    alpha: 1
+  };
+}
 
     function spawnCoins(amount = 8) {
       for (let i = 0; i < amount; i++) {
@@ -851,19 +854,20 @@
       ctx.clearRect(0, 0, rect.width, rect.height);
 
       for (let i = coins.length - 1; i >= 0; i--) {
-        const c = coins[i];
-        c.y += c.vy;
-        c.x += c.vx;
-        c.rotation += c.vr;
-        c.r *= 0.992;
-        c.alpha *= 0.987;
+  const c = coins[i];
 
-        drawCoin(c);
+  c.y += c.vy;
+  c.x += (c.targetX - c.x) * 0.015 + c.vx;
+  c.rotation += c.vr;
+  c.r *= 0.994;
+  c.alpha *= 0.988;
 
-        if (c.alpha < 0.05 || c.y > rect.height + 6 || c.r < 1.4) {
-          coins.splice(i, 1);
-        }
-      }
+  drawCoin(c);
+
+  if (c.alpha < 0.05 || c.y > c.targetY || c.r < 1.4) {
+    coins.splice(i, 1);
+  }
+}
 
       ctx.globalAlpha = 1;
       requestAnimationFrame(animateCanvas);
