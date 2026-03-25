@@ -3,19 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Midnight Manifesting Wishing Well</title>
+  <title>Midnight Manifesting | Luxury Phoenix Well</title>
 
   <style>
+    :root {
+      --bg1: #04050d;
+      --bg2: #0b1020;
+      --bg3: #05070f;
+
+      --moon: rgba(187, 214, 255, 0.16);
+      --beam: rgba(170, 215, 255, 0.10);
+      --mist: rgba(181, 211, 255, 0.08);
+
+      --silver: #dfe9ff;
+      --soft-blue: #9dc4ff;
+      --deep-blue: #3b66b8;
+      --diamond: #dff7ff;
+      --diamond2: #7ad8ff;
+      --gold1: #ffe79a;
+      --gold2: #d8a93f;
+      --gold3: #8d6113;
+
+      --phoenix1: #ffbf70;
+      --phoenix2: #ff8e4a;
+      --phoenix3: #ff5b6a;
+    }
+
+    * { box-sizing: border-box; }
+
     html, body {
       margin: 0;
-      overflow: hidden;
       width: 100%;
       height: 100%;
+      overflow: hidden;
+      font-family: Georgia, "Times New Roman", serif;
       background:
-        radial-gradient(circle at 50% 20%, rgba(73, 105, 183, 0.18), transparent 25%),
-        radial-gradient(circle at 50% 75%, rgba(32, 52, 96, 0.25), transparent 35%),
-        linear-gradient(180deg, #04050d 0%, #0a0d1d 40%, #05070f 100%);
-      font-family: Georgia, serif;
+        radial-gradient(circle at 50% 18%, rgba(108, 144, 223, 0.18), transparent 22%),
+        radial-gradient(circle at 50% 75%, rgba(49, 76, 141, 0.20), transparent 34%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 42%, var(--bg3) 100%);
+      color: var(--silver);
+    }
+
+    body.scene-bloom #moon-glow,
+    body.scene-bloom #light-beam,
+    body.scene-bloom #floor-glow,
+    body.scene-bloom #side-glow-left,
+    body.scene-bloom #side-glow-right {
+      filter: blur(18px) brightness(1.25);
+      opacity: 1;
+    }
+
+    body.scene-bloom #scene::after {
+      opacity: 0.18;
     }
 
     #scene {
@@ -23,45 +62,320 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
+      isolation: isolate;
     }
+
+    #scene::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(165, 194, 255, 0.10);
+      box-shadow: inset 0 0 40px rgba(120, 160, 255, 0.05);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    #scene::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, transparent 42%, rgba(0, 0, 0, 0.18) 78%, rgba(0, 0, 0, 0.42) 100%);
+      pointer-events: none;
+      z-index: 99;
+      opacity: 1;
+      transition: opacity 0.9s ease;
+    }
+
+    /* Atmospheric background */
+    #moon-glow {
+      position: absolute;
+      left: 50%;
+      top: 2vh;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(210, 232, 255, 0.15), rgba(176, 214, 255, 0.04) 58%, transparent 74%);
+      filter: blur(14px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #light-beam {
+      position: absolute;
+      left: 50%;
+      top: 7vh;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 58vh;
+      background: linear-gradient(
+        180deg,
+        rgba(205, 230, 255, 0.11),
+        rgba(148, 194, 255, 0.06),
+        transparent 84%
+      );
+      clip-path: polygon(44% 0%, 56% 0%, 100% 100%, 0% 100%);
+      filter: blur(9px);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.82;
+    }
+
+    #side-glow-left,
+    #side-glow-right {
+      position: absolute;
+      top: 18vh;
+      width: 220px;
+      height: 440px;
+      background: radial-gradient(circle, rgba(127, 174, 255, 0.10), transparent 70%);
+      filter: blur(34px);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.78;
+    }
+
+    #side-glow-left { left: -50px; }
+    #side-glow-right { right: -50px; }
 
     #floor-glow {
       position: absolute;
       left: 50%;
-      bottom: 6vh;
+      bottom: 5vh;
       transform: translateX(-50%);
-      width: 420px;
-      height: 120px;
+      width: 520px;
+      height: 140px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(94, 139, 255, 0.18), rgba(94, 139, 255, 0.02) 70%);
-      filter: blur(25px);
+      background: radial-gradient(circle, rgba(110, 158, 255, 0.22), rgba(94, 139, 255, 0.02) 72%);
+      filter: blur(28px);
       pointer-events: none;
+      z-index: 1;
     }
 
     .mist {
       position: absolute;
-      width: 140vw;
-      height: 30vh;
-      left: -20vw;
-      bottom: 8vh;
-      background: radial-gradient(circle, rgba(182, 209, 255, 0.08), transparent 60%);
-      filter: blur(30px);
-      animation: drift 14s ease-in-out infinite alternate;
+      width: 150vw;
+      height: 32vh;
+      left: -24vw;
+      bottom: 7vh;
+      background: radial-gradient(circle, var(--mist), transparent 60%);
+      filter: blur(32px);
+      animation: drift 15s ease-in-out infinite alternate;
       pointer-events: none;
+      z-index: 2;
+      opacity: 0.88;
+    }
+
+    .mist.mist-2 {
+      bottom: 18vh;
+      height: 18vh;
+      opacity: 0.42;
+      animation-duration: 20s;
+      filter: blur(24px);
     }
 
     @keyframes drift {
       from { transform: translateX(-2vw); opacity: 0.55; }
-      to { transform: translateX(2vw); opacity: 0.8; }
+      to { transform: translateX(3vw); opacity: 0.9; }
     }
 
+    /* Title / luxury branding */
+    #title-wrap {
+      position: absolute;
+      top: 4.4vh;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      pointer-events: none;
+      z-index: 10;
+      width: min(88vw, 900px);
+    }
+
+    #title-main {
+      font-size: clamp(28px, 3.2vw, 48px);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(232, 240, 255, 0.95);
+      text-shadow:
+        0 0 12px rgba(149, 188, 255, 0.28),
+        0 0 34px rgba(125, 171, 255, 0.10);
+    }
+
+    #title-sub {
+      margin-top: 8px;
+      font: 500 clamp(11px, 1vw, 14px)/1.4 Arial, sans-serif;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(209, 224, 255, 0.64);
+    }
+
+    #title-gems {
+      margin-top: 12px;
+      font-size: 15px;
+      letter-spacing: 0.45em;
+      color: rgba(179, 239, 255, 0.75);
+      text-shadow: 0 0 16px rgba(143, 231, 255, 0.25);
+    }
+
+    /* Decorative diamond motifs */
+    .diamond-orbit {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      transform: rotate(45deg);
+      border: 1px solid rgba(180, 240, 255, 0.18);
+      background: linear-gradient(135deg, rgba(220, 250, 255, 0.18), rgba(122, 216, 255, 0.06));
+      box-shadow:
+        0 0 15px rgba(122, 216, 255, 0.16),
+        inset 0 0 8px rgba(255,255,255,0.08);
+      z-index: 3;
+      pointer-events: none;
+      animation: diamondFloat 8s ease-in-out infinite alternate;
+    }
+
+    .diamond-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border: 1px solid rgba(233, 252, 255, 0.20);
+    }
+
+    .diamond-left { left: 20%; top: 18%; animation-delay: -1s; }
+    .diamond-right { right: 20%; top: 22%; animation-delay: -3s; }
+    .diamond-low-left { left: 14%; bottom: 22%; width: 12px; height: 12px; animation-delay: -2s; }
+    .diamond-low-right { right: 14%; bottom: 26%; width: 12px; height: 12px; animation-delay: -5s; }
+
+    @keyframes diamondFloat {
+      from { transform: rotate(45deg) translateY(-6px); opacity: 0.58; }
+      to { transform: rotate(45deg) translateY(8px); opacity: 0.9; }
+    }
+
+    /* Phoenix sigil / premium focal decoration */
+    #phoenix-sigil {
+      position: absolute;
+      left: 50%;
+      bottom: 33vh;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 220px;
+      pointer-events: none;
+      z-index: 8;
+      opacity: 0.42;
+      filter: drop-shadow(0 0 18px rgba(255, 154, 94, 0.18));
+    }
+
+    #phoenix-sigil svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Character / phoenix event layer */
+    #special-character {
+      position: absolute;
+      left: 50%;
+      bottom: 27vh;
+      transform: translateX(-50%) translateY(24px) scale(0.88);
+      width: 300px;
+      height: 320px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 30;
+      transition: opacity 0.55s ease, transform 0.7s ease;
+      filter: drop-shadow(0 0 24px rgba(255, 144, 96, 0.18));
+    }
+
+    #special-character.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    #phoenix-burst {
+      position: absolute;
+      inset: 0;
+    }
+
+    .phoenix-wing {
+      position: absolute;
+      left: 50%;
+      bottom: 40px;
+      width: 110px;
+      height: 170px;
+      transform-origin: bottom center;
+      opacity: 0;
+      filter: blur(0.4px);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255, 233, 170, 0.95), rgba(255, 186, 104, 0.82) 32%, rgba(255, 108, 83, 0.56) 65%, transparent 84%);
+      clip-path: polygon(50% 0%, 88% 26%, 100% 70%, 78% 100%, 55% 72%, 38% 100%, 0% 74%, 12% 28%);
+      box-shadow: 0 0 22px rgba(255, 153, 90, 0.25);
+    }
+
+    .phoenix-wing.left {
+      transform: translateX(-120%) rotate(-28deg) scaleY(0.86);
+    }
+
+    .phoenix-wing.right {
+      transform: translateX(20%) rotate(28deg) scaleY(0.86);
+    }
+
+    .phoenix-core {
+      position: absolute;
+      left: 50%;
+      bottom: 70px;
+      transform: translateX(-50%);
+      width: 66px;
+      height: 150px;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 50% 14%, rgba(255, 244, 203, 0.95), rgba(255, 187, 108, 0.92) 26%, rgba(255, 99, 91, 0.66) 56%, transparent 80%);
+      clip-path: polygon(50% 0%, 72% 14%, 80% 35%, 70% 64%, 58% 100%, 42% 100%, 30% 64%, 20% 35%, 28% 14%);
+      filter: drop-shadow(0 0 20px rgba(255, 140, 90, 0.26));
+    }
+
+    #special-character.show .phoenix-wing.left {
+      animation: wingLeft 2.8s ease forwards;
+    }
+
+    #special-character.show .phoenix-wing.right {
+      animation: wingRight 2.8s ease forwards;
+    }
+
+    #special-character.show .phoenix-core {
+      animation: phoenixCore 2.8s ease forwards;
+    }
+
+    @keyframes wingLeft {
+      0% { opacity: 0; transform: translateX(-112%) translateY(34px) rotate(-18deg) scale(0.6); }
+      25% { opacity: 1; }
+      55% { transform: translateX(-122%) translateY(-20px) rotate(-36deg) scale(1.08); }
+      100% { opacity: 0; transform: translateX(-132%) translateY(-84px) rotate(-46deg) scale(1.22); }
+    }
+
+    @keyframes wingRight {
+      0% { opacity: 0; transform: translateX(12%) translateY(34px) rotate(18deg) scale(0.6); }
+      25% { opacity: 1; }
+      55% { transform: translateX(22%) translateY(-20px) rotate(36deg) scale(1.08); }
+      100% { opacity: 0; transform: translateX(32%) translateY(-84px) rotate(46deg) scale(1.22); }
+    }
+
+    @keyframes phoenixCore {
+      0% { opacity: 0; transform: translateX(-50%) translateY(38px) scale(0.65); }
+      20% { opacity: 1; }
+      60% { transform: translateX(-50%) translateY(-30px) scale(1.05); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-108px) scale(1.18); }
+    }
+
+    /* Well composition */
     #well-wrap {
       position: absolute;
       left: 50%;
-      bottom: 13vh;
+      bottom: 12vh;
       transform: translateX(-50%);
-      width: 360px;
-      height: 240px;
+      width: 420px;
+      height: 280px;
+      perspective: 1000px;
+      z-index: 12;
     }
 
     #well-shadow {
@@ -69,22 +383,22 @@
       left: 50%;
       bottom: 18px;
       transform: translateX(-50%);
-      width: 280px;
-      height: 70px;
+      width: 320px;
+      height: 86px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.52);
       filter: blur(18px);
     }
 
     #well-glow {
       position: absolute;
       left: 50%;
-      bottom: 26px;
-      width: 250px;
-      height: 80px;
+      bottom: 22px;
+      width: 290px;
+      height: 90px;
       transform: translateX(-50%);
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(120, 175, 255, 0.28), rgba(120, 175, 255, 0.02) 70%);
+      background: radial-gradient(circle, rgba(120, 175, 255, 0.34), rgba(120, 175, 255, 0.02) 70%);
       filter: blur(14px);
     }
 
@@ -92,127 +406,137 @@
       position: absolute;
       left: 50%;
       bottom: 0;
-      width: 320px;
-      height: 155px;
-      transform: translateX(-50%);
+      width: 360px;
+      height: 178px;
+      transform: translateX(-50%) rotateX(14deg);
+      transform-style: preserve-3d;
       border-radius: 50% / 44%;
-      background: linear-gradient(180deg, rgba(36, 46, 78, 0.95), rgba(12, 16, 30, 0.98));
+      background:
+        linear-gradient(180deg, rgba(37, 45, 75, 0.96), rgba(14, 18, 33, 0.98));
       box-shadow:
-        0 0 55px rgba(86, 139, 255, 0.18),
-        inset 0 2px 8px rgba(255,255,255,0.08),
-        inset 0 -24px 34px rgba(0,0,0,0.42);
-      border: 1px solid rgba(165, 198, 255, 0.18);
+        0 0 75px rgba(86, 139, 255, 0.14),
+        inset 0 2px 10px rgba(255,255,255,0.10),
+        inset 0 -30px 40px rgba(0,0,0,0.44);
+      border: 1px solid rgba(170, 202, 255, 0.20);
+      overflow: visible;
     }
 
     #well-frame::before {
       content: "";
       position: absolute;
       left: 50%;
-      top: 8px;
+      top: 10px;
       transform: translateX(-50%);
-      width: 250px;
-      height: 22px;
+      width: 284px;
+      height: 26px;
       border-radius: 50%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+      background: linear-gradient(180deg, rgba(255,255,255,0.17), rgba(255,255,255,0.02));
       filter: blur(1px);
     }
 
+    #well-frame::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 308px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(207, 228, 255, 0.10);
+      opacity: 0.55;
+    }
+
     #well-frame.flash {
-      animation: wellPulse 1.2s ease;
+      animation: wellPulse 1.15s ease;
     }
 
     @keyframes wellPulse {
       0% {
         box-shadow:
-          0 0 55px rgba(86, 139, 255, 0.18),
-          inset 0 2px 8px rgba(255,255,255,0.08),
-          inset 0 -24px 34px rgba(0,0,0,0.42);
+          0 0 75px rgba(86, 139, 255, 0.14),
+          inset 0 2px 10px rgba(255,255,255,0.10),
+          inset 0 -30px 40px rgba(0,0,0,0.44);
       }
       50% {
         box-shadow:
-          0 0 95px rgba(140, 190, 255, 0.65),
-          inset 0 2px 8px rgba(255,255,255,0.12),
-          inset 0 -24px 34px rgba(0,0,0,0.42);
+          0 0 120px rgba(146, 201, 255, 0.54),
+          inset 0 2px 12px rgba(255,255,255,0.16),
+          inset 0 -30px 40px rgba(0,0,0,0.44);
       }
       100% {
         box-shadow:
-          0 0 55px rgba(86, 139, 255, 0.18),
-          inset 0 2px 8px rgba(255,255,255,0.08),
-          inset 0 -24px 34px rgba(0,0,0,0.42);
+          0 0 75px rgba(86, 139, 255, 0.14),
+          inset 0 2px 10px rgba(255,255,255,0.10),
+          inset 0 -30px 40px rgba(0,0,0,0.44);
       }
     }
 
     #well-inner {
       position: absolute;
       left: 50%;
-      top: 14px;
-      width: 245px;
-      height: 76px;
-      transform: translateX(-50%);
+      top: 16px;
+      width: 278px;
+      height: 92px;
+      transform: translateX(-50%) rotateX(66deg);
+      transform-style: preserve-3d;
       border-radius: 50%;
       overflow: hidden;
-      background: radial-gradient(circle at 50% 50%, rgba(13, 19, 42, 0.95), rgba(4, 7, 18, 1));
+      background:
+        radial-gradient(circle at 50% 50%, rgba(12, 18, 40, 0.98), rgba(3, 6, 17, 1));
       box-shadow:
-        inset 0 0 18px rgba(0, 0, 0, 0.55),
-        0 0 12px rgba(111, 164, 255, 0.08);
+        inset 0 0 22px rgba(0, 0, 0, 0.62),
+        0 0 14px rgba(111, 164, 255, 0.08);
     }
 
-    #coin-mask {
+    #coin-canvas {
       position: absolute;
       inset: 0;
-      overflow: hidden;
-      pointer-events: none;
+      width: 100%;
+      height: 100%;
       z-index: 1;
+      pointer-events: none;
     }
 
     #water {
       position: absolute;
       inset: 0;
       border-radius: 50%;
+      z-index: 2;
       background:
-        radial-gradient(circle at 50% 40%, rgba(172, 217, 255, 0.28), rgba(88, 134, 227, 0.14) 45%, rgba(0,0,0,0) 70%);
+        radial-gradient(circle at 50% 40%, rgba(220, 247, 255, 0.22), rgba(123, 175, 255, 0.16) 42%, rgba(0,0,0,0) 72%);
       box-shadow:
         0 0 22px rgba(118, 176, 255, 0.18),
-        inset 0 0 18px rgba(194, 229, 255, 0.08);
-      z-index: 2;
+        inset 0 0 18px rgba(194, 229, 255, 0.10);
     }
 
-    #ripples-layer, #particles-layer {
+    #water::before {
+      content: "";
+      position: absolute;
+      left: 14%;
+      top: 24%;
+      width: 72%;
+      height: 30%;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+      filter: blur(2px);
+      opacity: 0.85;
+    }
+
+    /* Scene particles and ripples */
+    #ripples-layer,
+    #particles-layer,
+    #blessing-layer {
       position: absolute;
       inset: 0;
       pointer-events: none;
     }
 
-    .coin {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #fff7bf 0%, #ffe27a 25%, #e0b645 55%, #9c6f13 100%);
-      box-shadow:
-        0 0 10px rgba(255, 214, 94, 0.4),
-        0 0 20px rgba(255, 214, 94, 0.15);
-      animation: coinDropIntoWell 1.8s ease-in forwards;
-      z-index: 1;
-    }
-
-    @keyframes coinDropIntoWell {
-      0% {
-        transform: translateY(-80px) scale(0.95);
-        opacity: 0;
-      }
-      10% { opacity: 1; }
-      100% {
-        transform: translateY(78px) scale(0.72);
-        opacity: 0.12;
-      }
-    }
-
     .ripple {
       position: absolute;
       left: 50%;
-      bottom: 144px;
-      width: 26px;
+      bottom: 156px;
+      width: 28px;
       height: 10px;
       transform: translateX(-50%);
       border-radius: 50%;
@@ -223,13 +547,13 @@
 
     @keyframes ripple {
       0% {
-        width: 26px;
+        width: 28px;
         height: 10px;
-        opacity: 0.8;
+        opacity: 0.82;
       }
       100% {
-        width: 220px;
-        height: 52px;
+        width: 256px;
+        height: 56px;
         opacity: 0;
       }
     }
@@ -239,40 +563,52 @@
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: rgba(196, 227, 255, 0.85);
-      box-shadow: 0 0 12px rgba(196, 227, 255, 0.55);
+      background: rgba(210, 238, 255, 0.86);
+      box-shadow: 0 0 14px rgba(196, 227, 255, 0.58);
+      animation: floatUp linear forwards;
+    }
+
+    .diamond-spark {
+      position: absolute;
+      width: 11px;
+      height: 11px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, rgba(229, 252, 255, 0.88), rgba(122, 216, 255, 0.32));
+      box-shadow: 0 0 18px rgba(122, 216, 255, 0.22);
       animation: floatUp linear forwards;
     }
 
     @keyframes floatUp {
       0% {
-        transform: translateY(0) scale(0.8);
+        transform: translateY(0) scale(0.8) rotate(0deg);
         opacity: 0;
       }
       15% { opacity: 1; }
       100% {
-        transform: translateY(-140px) scale(1.1);
+        transform: translateY(-160px) scale(1.15) rotate(16deg);
         opacity: 0;
       }
     }
 
+    /* Text / ritual UI */
     #affirmation {
       position: absolute;
       left: 50%;
-      bottom: 42vh;
+      bottom: 44vh;
       transform: translateX(-50%);
-      width: min(80vw, 700px);
+      width: min(82vw, 860px);
       text-align: center;
-      color: #dde8ff;
-      font-size: clamp(22px, 2.4vw, 34px);
-      line-height: 1.35;
+      color: #e4ecff;
+      font-size: clamp(24px, 2.65vw, 38px);
+      line-height: 1.36;
       letter-spacing: 0.03em;
       text-shadow:
-        0 0 8px rgba(130, 177, 255, 0.45),
-        0 0 25px rgba(130, 177, 255, 0.16);
+        0 0 10px rgba(130, 177, 255, 0.45),
+        0 0 30px rgba(130, 177, 255, 0.16);
       opacity: 0;
       transition: opacity 0.8s ease;
       pointer-events: none;
+      z-index: 20;
     }
 
     #status {
@@ -286,20 +622,153 @@
       border-radius: 999px;
       padding: 8px 13px;
       backdrop-filter: blur(8px);
+      z-index: 50;
+    }
+
+    #energy-wrap {
+      position: absolute;
+      left: 50%;
+      bottom: 5.6vh;
+      transform: translateX(-50%);
+      width: 320px;
+      text-align: center;
+      z-index: 22;
+      pointer-events: none;
+    }
+
+    #energy-label {
+      color: rgba(226, 235, 255, 0.84);
+      font: 12px/1.2 Arial, sans-serif;
+      margin-bottom: 8px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    #energy-bar {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(132,168,255,0.18);
+      overflow: hidden;
+      box-shadow:
+        inset 0 0 10px rgba(0,0,0,0.26),
+        0 0 18px rgba(120, 170, 255, 0.05);
+    }
+
+    #energy-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg,
+          rgba(90, 145, 255, 0.55),
+          rgba(117, 216, 255, 0.82),
+          rgba(255, 223, 150, 0.96)
+        );
+      box-shadow:
+        0 0 20px rgba(125, 192, 255, 0.42),
+        0 0 34px rgba(255, 195, 112, 0.16);
+      transition: width 0.5s ease;
+    }
+
+    .blessing-text {
+      position: absolute;
+      left: 50%;
+      bottom: 53vh;
+      transform: translateX(-50%);
+      color: rgba(255, 234, 191, 0.92);
+      font-size: clamp(18px, 2vw, 28px);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 12px rgba(255, 197, 121, 0.30),
+        0 0 26px rgba(255, 116, 90, 0.18);
+      opacity: 0;
+      animation: blessingRise 2.6s ease forwards;
+      z-index: 40;
+      pointer-events: none;
+      text-align: center;
+      width: 90vw;
+    }
+
+    @keyframes blessingRise {
+      0% { opacity: 0; transform: translateX(-50%) translateY(24px) scale(0.92); }
+      18% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-26px) scale(1.04); }
     }
   </style>
 </head>
 <body>
   <div id="scene">
+    <div id="moon-glow"></div>
+    <div id="light-beam"></div>
+    <div id="side-glow-left"></div>
+    <div id="side-glow-right"></div>
     <div id="floor-glow"></div>
     <div class="mist"></div>
+    <div class="mist mist-2"></div>
+
+    <div id="title-wrap">
+      <div id="title-main">Midnight Manifesting</div>
+      <div id="title-sub">Luxury Phoenix Well • Diamonds • Destiny • Rise</div>
+      <div id="title-gems">✦ ◇ ✦ ◇ ✦</div>
+    </div>
+
+    <div class="diamond-orbit diamond-left"></div>
+    <div class="diamond-orbit diamond-right"></div>
+    <div class="diamond-orbit diamond-low-left"></div>
+    <div class="diamond-orbit diamond-low-right"></div>
+
+    <div id="phoenix-sigil">
+      <svg viewBox="0 0 300 300" aria-hidden="true">
+        <defs>
+          <linearGradient id="phoenixStroke" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fff2bf" stop-opacity="0.95"></stop>
+            <stop offset="35%" stop-color="#ffbf70" stop-opacity="0.9"></stop>
+            <stop offset="70%" stop-color="#ff8e4a" stop-opacity="0.75"></stop>
+            <stop offset="100%" stop-color="#ff5b6a" stop-opacity="0.55"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M150 38
+                 C170 64, 178 88, 171 110
+                 C191 102, 215 110, 227 130
+                 C207 128, 189 136, 176 152
+                 C192 155, 210 168, 216 188
+                 C194 180, 171 186, 154 204
+                 C159 180, 151 160, 136 144
+                 C122 159, 115 180, 118 204
+                 C101 186, 78 180, 56 188
+                 C62 168, 80 155, 96 152
+                 C83 136, 65 128, 45 130
+                 C57 110, 81 102, 101 110
+                 C94 88, 102 64, 122 38
+                 C131 56, 141 74, 150 98
+                 C159 74, 169 56, 178 38"
+              fill="none"
+              stroke="url(#phoenixStroke)"
+              stroke-width="4.4"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+        <circle cx="150" cy="150" r="76" fill="none" stroke="rgba(175,205,255,0.14)" stroke-width="1.5" />
+        <circle cx="150" cy="150" r="92" fill="none" stroke="rgba(255,194,125,0.08)" stroke-width="1.2" />
+      </svg>
+    </div>
+
+    <div id="special-character">
+      <div id="phoenix-burst">
+        <div class="phoenix-wing left"></div>
+        <div class="phoenix-wing right"></div>
+        <div class="phoenix-core"></div>
+      </div>
+    </div>
 
     <div id="well-wrap">
       <div id="well-shadow"></div>
       <div id="well-glow"></div>
       <div id="well-frame">
         <div id="well-inner">
-          <div id="coin-mask"></div>
+          <canvas id="coin-canvas"></canvas>
           <div id="water"></div>
         </div>
       </div>
@@ -307,32 +776,51 @@
 
     <div id="ripples-layer"></div>
     <div id="particles-layer"></div>
+    <div id="blessing-layer"></div>
+
     <div id="affirmation"></div>
+
+    <div id="energy-wrap">
+      <div id="energy-label">Diamond Energy</div>
+      <div id="energy-bar">
+        <div id="energy-fill"></div>
+      </div>
+    </div>
+
     <div id="status">Waiting for blessings…</div>
   </div>
 
   <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
   <script>
-    const affirmations = [
-      "your wish has been received…",
-      "the universe is aligning for you…",
-      "abundance flows toward you…",
-      "what is meant for you is moving now…",
-      "energy is shifting in your favor…",
-      "your blessing is already on its way…",
-      "the well has heard your intention…"
-    ];
-
     const smallAffirmations = [
       "your wish has been received…",
       "the well has heard you…",
-      "energy is moving…"
+      "energy is moving…",
+      "your intention has been placed…",
+      "the water carries your wish…"
+    ];
+
+    const mediumAffirmations = [
+      "your intention is gaining strength…",
+      "the universe is responding…",
+      "momentum is building around your desire…",
+      "your energy is growing brighter…",
+      "the path is beginning to open…"
     ];
 
     const bigAffirmations = [
-      "🌌 a powerful shift has begun…",
+      "🌌 a powerful manifestation has entered the well…",
       "✨ the universe is moving in your favor…",
-      "🔮 this intention carries strong energy…"
+      "🔮 this intention carries strong energy…",
+      "💫 a major shift is taking place…",
+      "🌙 the portal is opening for this wish…"
+    ];
+
+    const phoenixAffirmations = [
+      "🔥 the phoenix rises with your intention…",
+      "💎 diamond energy has awakened the flame…",
+      "🕊 your blessing is rising from the ashes into form…",
+      "👑 luxury energy surrounds this manifestation…"
     ];
 
     const PUSHER_KEY = "a3c72b1712fa1d637b30";
@@ -340,22 +828,167 @@
 
     const ripplesLayer = document.getElementById("ripples-layer");
     const particlesLayer = document.getElementById("particles-layer");
+    const blessingLayer = document.getElementById("blessing-layer");
     const affirmation = document.getElementById("affirmation");
     const status = document.getElementById("status");
+    const energyFill = document.getElementById("energy-fill");
     const wellFrame = document.getElementById("well-frame");
-    const coinMask = document.getElementById("coin-mask");
+    const specialCharacter = document.getElementById("special-character");
 
+    let energy = 0;
+
+    /* Canvas coin engine */
+    const canvas = document.getElementById("coin-canvas");
+    const ctx = canvas.getContext("2d");
+    const coins = [];
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(rect.width * dpr);
+      canvas.height = Math.floor(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function makeCoin() {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: rect.width * (0.38 + Math.random() * 0.24),
+        y: -12 - Math.random() * 18,
+        r: 6 + Math.random() * 4,
+        vy: 2 + Math.random() * 2.6,
+        vx: (Math.random() - 0.5) * 0.5,
+        alpha: 1
+      };
+    }
+
+    function spawnCoins(amount = 8) {
+      for (let i = 0; i < amount; i++) {
+        coins.push(makeCoin());
+      }
+    }
+
+    function drawCoin(c) {
+      const gradient = ctx.createRadialGradient(
+        c.x - c.r * 0.3,
+        c.y - c.r * 0.3,
+        1,
+        c.x,
+        c.y,
+        c.r
+      );
+      gradient.addColorStop(0, "#fff7bf");
+      gradient.addColorStop(0.28, "#ffe27a");
+      gradient.addColorStop(0.60, "#d8a93f");
+      gradient.addColorStop(1, "#8d6113");
+
+      ctx.globalAlpha = c.alpha;
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(c.x - c.r * 0.22, c.y - c.r * 0.22, c.r * 0.18, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.35)";
+      ctx.fill();
+    }
+
+    function animateCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
+
+      for (let i = coins.length - 1; i >= 0; i--) {
+        const c = coins[i];
+        c.y += c.vy;
+        c.x += c.vx;
+        c.r *= 0.991;
+        c.alpha *= 0.986;
+
+        drawCoin(c);
+
+        if (c.alpha < 0.05 || c.y > rect.height + 20 || c.r < 1) {
+          coins.splice(i, 1);
+        }
+      }
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animateCanvas);
+    }
+
+    /* Scene helpers */
     function pulseWell() {
       wellFrame.classList.remove("flash");
       void wellFrame.offsetWidth;
       wellFrame.classList.add("flash");
     }
 
+    function pulseScene() {
+      document.body.classList.remove("scene-bloom");
+      void document.body.offsetWidth;
+      document.body.classList.add("scene-bloom");
+      setTimeout(() => {
+        document.body.classList.remove("scene-bloom");
+      }, 1200);
+    }
+
+    function triggerPhoenix() {
+      specialCharacter.classList.remove("show");
+      void specialCharacter.offsetWidth;
+      specialCharacter.classList.add("show");
+
+      setTimeout(() => {
+        specialCharacter.classList.remove("show");
+      }, 3000);
+    }
+
+    function showBlessingText(text) {
+      const el = document.createElement("div");
+      el.className = "blessing-text";
+      el.textContent = text;
+      blessingLayer.appendChild(el);
+      setTimeout(() => el.remove(), 2600);
+    }
+
+    function updateEnergy(amount) {
+      energy = Math.min(100, energy + amount);
+      energyFill.style.width = energy + "%";
+
+      if (energy >= 100) {
+        status.textContent = "Phoenix blessing awakened ✨";
+        spawnCoins(26);
+        addRipple(5);
+        addParticles(42, true);
+        pulseScene();
+        triggerPhoenix();
+        showBlessingText("Phoenix Blessing Activated");
+
+        setTimeout(() => {
+          energy = 0;
+          energyFill.style.width = "0%";
+          status.textContent = "Waiting for blessings…";
+        }, 2600);
+      }
+    }
+
     function showAffirmation(username = "", customText = "", diamonds = 1) {
-      let pool = diamonds >= 10 ? bigAffirmations : smallAffirmations;
-      let line = customText || pool[Math.floor(Math.random() * pool.length)];
-      affirmation.textContent = username ? `✨ ${username}, ${line}` : `✨ ${line}`;
+      let pool = smallAffirmations;
+
+      if (diamonds >= 100) {
+        pool = phoenixAffirmations;
+      } else if (diamonds >= 10) {
+        pool = mediumAffirmations;
+      }
+
+      const line = customText || pool[Math.floor(Math.random() * pool.length)];
+
+      affirmation.textContent =
+        username && diamonds < 10
+          ? `✨ ${username}, ${line}`
+          : `✨ ${line}`;
+
       affirmation.style.opacity = "1";
+
       setTimeout(() => {
         affirmation.style.opacity = "0";
       }, 4200);
@@ -365,58 +998,65 @@
       for (let i = 0; i < count; i++) {
         const ripple = document.createElement("div");
         ripple.className = "ripple";
-        ripple.style.bottom = (144 + i * 2) + "px";
+        ripple.style.bottom = (156 + i * 2) + "px";
         ripplesLayer.appendChild(ripple);
         setTimeout(() => ripple.remove(), 2400);
       }
     }
 
-    function addParticles(power = 12) {
+    function addParticles(power = 12, includeDiamonds = false) {
       for (let i = 0; i < power; i++) {
         const spark = document.createElement("div");
-        spark.className = "spark";
-        spark.style.left = `${48 + (Math.random() * 12 - 6)}%`;
-        spark.style.bottom = `${150 + Math.random() * 30}px`;
-        spark.style.animationDuration = `${2.3 + Math.random() * 2}s`;
+        spark.className = Math.random() < 0.2 && includeDiamonds ? "diamond-spark" : "spark";
+        spark.style.left = `${48 + (Math.random() * 16 - 8)}%`;
+        spark.style.bottom = `${150 + Math.random() * 46}px`;
+        spark.style.animationDuration = `${2.1 + Math.random() * 2.2}s`;
         particlesLayer.appendChild(spark);
         setTimeout(() => spark.remove(), 4300);
       }
     }
 
-    function dropCoins(amount = 8) {
-      for (let i = 0; i < amount; i++) {
-        const coin = document.createElement("div");
-        coin.className = "coin";
-        coin.style.left = `${40 + Math.random() * 20}%`;
-        coin.style.top = `-18px`;
-        coin.style.animationDuration = `${1.4 + Math.random() * 0.8}s`;
-        coinMask.appendChild(coin);
-        setTimeout(() => coin.remove(), 2200);
-      }
-    }
-
     function manifest(amount = 10, username = "", giftName = "", diamonds = 1) {
       let rippleCount = 1;
-      let particleCount = 10;
-      let custom = "";
+      let particleCount = 12;
+      let energyGain = 8;
+      let includeDiamonds = false;
+      let custom = giftName ? `${giftName} has entered the well…` : "";
 
-if (diamonds >= 100) {
-  custom = "🌌 a powerful manifestation has entered the well…";
-} else if (diamonds >= 10) {
-  custom = "✨ your intention is gaining strength…";
-} else if (giftName) {
-  custom = `${giftName} has entered the well…`;
-} else {
-  custom = "your wish has been received…";
-}
+      if (diamonds >= 1000) {
+        rippleCount = 6;
+        particleCount = 60;
+        energyGain = 100;
+        includeDiamonds = true;
+        custom = "🔥 a phoenix-level manifestation has entered the well…";
+        pulseScene();
+        triggerPhoenix();
+        showBlessingText("Phoenix Ascension");
+      } else if (diamonds >= 100) {
+        rippleCount = 4;
+        particleCount = 34;
+        energyGain = 34;
+        includeDiamonds = true;
+        custom = "💎 a luxury blessing has entered the well…";
+        pulseScene();
+        triggerPhoenix();
+      } else if (diamonds >= 10) {
+        rippleCount = 2;
+        particleCount = 20;
+        energyGain = 16;
+        includeDiamonds = true;
+        custom = "✨ your intention is gaining strength…";
+      }
 
-      dropCoins(amount);
+      spawnCoins(amount);
       addRipple(rippleCount);
-      addParticles(particleCount);
+      addParticles(particleCount, includeDiamonds);
       pulseWell();
+      updateEnergy(energyGain);
       showAffirmation(username, custom, diamonds);
     }
 
+    /* Pusher realtime hookup */
     const pusher = new Pusher(PUSHER_KEY, {
       cluster: PUSHER_CLUSTER
     });
@@ -433,7 +1073,7 @@ if (diamonds >= 100) {
 
       status.textContent = "Blessing received ✨";
       setTimeout(() => {
-        status.textContent = "Waiting for blessings…";
+        if (energy < 100) status.textContent = "Waiting for blessings…";
       }, 2500);
     });
 
@@ -441,12 +1081,16 @@ if (diamonds >= 100) {
       status.textContent = "Connected ✨";
       setTimeout(() => {
         status.textContent = "Waiting for blessings…";
-      }, 2000);
+      }, 1800);
     });
 
     pusher.connection.bind("error", function() {
       status.textContent = "Connection issue";
     });
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    animateCanvas();
   </script>
 </body>
 </html>
