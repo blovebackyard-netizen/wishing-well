@@ -881,44 +881,53 @@
     }
 
     function manifest(amount = 10, username = "", giftName = "", diamonds = 1) {
-      let rippleCount = 1;
-      let particleCount = 12;
-      let energyGain = 8;
-      let includeDiamonds = false;
-      let custom = giftName ? `${giftName} has entered the well…` : "";
 
-      if (diamonds >= 1000) {
-        rippleCount = 6;
-        particleCount = 60;
-        energyGain = 100;
-        includeDiamonds = true;
-        custom = "🔥 a phoenix-level manifestation has entered the well…";
-        pulseScene();
-        triggerPhoenix();
-        showBlessingText("Phoenix Ascension");
-      } else if (diamonds >= 100) {
-        rippleCount = 4;
-        particleCount = 34;
-        energyGain = 34;
-        includeDiamonds = true;
-        custom = "💎 a luxury blessing has entered the well…";
-        pulseScene();
-        triggerPhoenix();
-      } else if (diamonds >= 10) {
-        rippleCount = 2;
-        particleCount = 20;
-        energyGain = 16;
-        includeDiamonds = true;
-        custom = "✨ your intention is gaining strength…";
-      }
+  let rippleCount = 1;
+  let particleCount = 10;
+  let energyGain = 6;
+  let includeDiamonds = false;
+  let custom = giftName ? `${giftName} has entered the well…` : "";
 
-      spawnCoins(Math.max(14, amount * 2));
-      addRipple(rippleCount);
-      addParticles(particleCount, includeDiamonds);
-      pulseWell();
-      updateEnergy(energyGain);
-      showAffirmation(username, custom, diamonds);
-    }
+  // 🟢 SMALL GIFTS (1–49)
+  if (diamonds < 50) {
+    rippleCount = 1;
+    particleCount = 10;
+    energyGain = 5;
+  }
+
+  // 🔵 MEDIUM GIFTS (50–499)
+  else if (diamonds >= 50 && diamonds < 500) {
+    rippleCount = 2;
+    particleCount = 20;
+    energyGain = 12;
+    includeDiamonds = true;
+    custom = "✨ your intention is gaining strength…";
+  }
+
+  // 🟣 BIG GIFTS (500+)
+  else if (diamonds >= 500) {
+    rippleCount = 4;
+    particleCount = 35;
+    energyGain = 30;
+    includeDiamonds = true;
+
+    custom = "💎 a powerful blessing has entered the well…";
+    status.textContent = "✨ A powerful blessing has been received ✨";
+
+    // 🔥 THIS IS YOUR PHOENIX TRIGGER
+    triggerPhoenix();
+    pulseScene();
+    showBlessingText("Phoenix Blessing Activated");
+  }
+
+  // 💥 APPLY EFFECTS
+  spawnCoins(Math.max(14, amount * 2));
+  addRipple(rippleCount);
+  addParticles(particleCount, includeDiamonds);
+  pulseWell();
+  updateEnergy(energyGain);
+  showAffirmation(username, custom, diamonds);
+}
 
     const pusher = new Pusher(PUSHER_KEY, {
       cluster: PUSHER_CLUSTER
